@@ -52,5 +52,5 @@ def update_rates():
     else:
         print("Предупреждение: Ключи Supabase не найдены, данные отправлены только локально.")
 
-if name == "main":
+if __name__ == "__main__":
     update_rates()
