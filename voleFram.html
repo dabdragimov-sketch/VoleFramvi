@@ -1,0 +1,2291 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Депозит таразы</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Manrope:wght@400;500;700;800&family=PT+Sans:wght@400;700&family=PT+Serif:wght@700&display=swap">
+<style>
+/* Layout: banknote-green ground with a guilloche rosette pattern, a sticky header with separate screens (main, compare, tools, offers, about, support) switched by hash token, a shared scenario bar, and a classical bank facade drawn behind the main hero. Gold on dark green; deep green on pale mint in light theme. */
+:root {
+  --bg: #061d17;
+  --bg-2: #0a2a21;
+  --surface: #0d2b23;
+  --surface-2: #133a2f;
+  --ink: #e9f3ee;
+  --muted: #8fb0a3;
+  --line: #21493b;
+  --accent: #d8b04f;
+  --accent-ink: #1b1403;
+  --gold: #d8b04f;
+  --good: #7fdcae;
+  --warn: #f0a35e;
+  --s1: #d8b04f;
+  --s2: #7fdcae;
+  --s3: #7cc4ea;
+  --font-display: "Lora", "PT Serif", Georgia, serif;
+  --font-body: "Manrope", "PT Sans", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #e9f2ec; --bg-2: #d6e7dc; --surface: #ffffff; --surface-2: #e1eee6; --ink: #0c2a20; --muted: #4a6759; --line: #c2d6ca;
+    --accent: #0f5d45; --accent-ink: #ffffff; --gold: #8a6410; --good: #146b44; --warn: #98560f;
+    --s1: #0f5d45; --s2: #a77a15; --s3: #2f6f9e;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #e9f2ec; --bg-2: #d6e7dc; --surface: #ffffff; --surface-2: #e1eee6; --ink: #0c2a20; --muted: #4a6759; --line: #c2d6ca;
+  --accent: #0f5d45; --accent-ink: #ffffff; --gold: #8a6410; --good: #146b44; --warn: #98560f;
+  --s1: #0f5d45; --s2: #a77a15; --s3: #2f6f9e;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; color: var(--accent); }
+.bg svg { width: 100%; height: 100%; display: block; }
+.bg .fade { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, transparent 0%, var(--bg) 78%); }
+.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; text-wrap: balance; line-height: 1.15; }
+h1 { font-size: clamp(28px, 4.6vw, 46px); }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }
+p { margin: 0; }
+.eyebrow { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 800; }
+a { color: var(--accent); }
+
+/* header */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+.header-in { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 14px 22px; padding-block: 10px; flex-wrap: wrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink); text-decoration: none; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; }
+.nav a { text-decoration: none; color: var(--muted); font-weight: 800; font-size: 14px; padding: 8px 13px; border-radius: 8px; white-space: nowrap; }
+.nav a[aria-current="page"] { color: var(--accent-ink); background: var(--accent); }
+.nav a:not([aria-current="page"]):hover { color: var(--ink); background: var(--surface-2); }
+.tools-r { display: flex; gap: 8px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.seg button { font: inherit; font-size: 13px; font-weight: 800; color: var(--muted); background: transparent; border: 0; padding: 5px 13px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.pill-btn { font: inherit; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+@media (max-width: 760px) { .nav { order: 3; flex-basis: 100%; } }
+
+.view { display: flex; flex-direction: column; gap: 22px; padding-top: 4px; }
+.view[hidden] { display: none; }
+.view-head { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; }
+.view-head p { color: var(--muted); max-width: 70ch; }
+
+/* panels */
+.panel { background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.sec-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.sec-head p { color: var(--muted); font-size: 13.5px; }
+.scn { display: grid; grid-template-columns: 1.25fr 1.35fr 1fr 1fr; gap: 18px; align-items: start; }
+@media (max-width: 960px) { .scn { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .scn { grid-template-columns: minmax(0, 1fr); } }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .field .lbl { font-size: 12.5px; font-weight: 800; color: var(--muted); letter-spacing: .02em; }
+input[type="number"], input[type="text"], select, textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 11px; min-width: 0; font-variant-numeric: tabular-nums;
+}
+input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.unit { position: relative; }
+.unit span { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 14px; }
+.unit input { padding-right: 34px; }
+.unit.big input { font-size: 21px; font-weight: 800; padding-block: 11px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-btn { font: inherit; font-size: 13px; font-weight: 700; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 5px 12px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.chip-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.check { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--accent); }
+.filters { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+
+/* main hero */
+.hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, var(--bg-2), var(--surface)); padding: clamp(18px, 3.4vw, 36px); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 26px; align-items: center; }
+.hero::after { content: ""; position: absolute; inset: 7px; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 9px; pointer-events: none; }
+.hero .facade { position: absolute; right: -10px; bottom: -2px; width: min(560px, 78%); color: var(--accent); opacity: .17; pointer-events: none; }
+.hero > * { position: relative; }
+.hero .lead { margin-top: 12px; color: var(--muted); max-width: 54ch; font-size: 15.5px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.btn { font: inherit; font-weight: 800; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 8px; padding: 10px 18px; cursor: pointer; text-decoration: none; display: inline-block; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.del { border-color: var(--line); color: var(--muted); background: transparent; padding: 6px 10px; font-weight: 500; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.note { margin-top: 16px; display: flex; gap: 10px; align-items: flex-start; border: 1px dashed var(--gold); border-radius: 8px; padding: 9px 12px; font-size: 13.5px; max-width: 60ch; background: color-mix(in srgb, var(--bg) 40%, transparent); }
+.note b { color: var(--gold); white-space: nowrap; }
+.kpi-card { background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.kpi-main { font-family: var(--font-display); font-size: clamp(30px, 5.2vw, 46px); line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.kpi-sub { color: var(--muted); font-size: 13.5px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.kpi-grid div { border-top: 2px solid var(--line); padding-top: 8px; min-width: 0; }
+.kpi-grid span { display: block; font-size: 11.5px; color: var(--muted); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.kpi-grid b { font-size: 17px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.pos { color: var(--good); }
+.neg { color: var(--warn); }
+.spark svg { display: block; width: 100%; height: 56px; }
+@media (max-width: 880px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 460px) { .kpi-grid { grid-template-columns: minmax(0, 1fr); } }
+.podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .podium { grid-template-columns: minmax(0, 1fr); } }
+.pod { border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.pod .rk { font-family: var(--font-display); font-size: 30px; color: var(--gold); line-height: 1; }
+.pod .nm { font-weight: 800; }
+.pod .fv { font-family: var(--font-display); font-size: 24px; font-variant-numeric: tabular-nums; }
+.feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.feat a { text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.feat a:hover { border-color: var(--accent); }
+.feat svg { width: 30px; height: 30px; color: var(--accent); }
+.feat p { color: var(--muted); font-size: 14px; }
+.feat .go { color: var(--accent); font-weight: 800; font-size: 14px; margin-top: auto; }
+
+/* tables */
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); font-weight: 800; white-space: nowrap; }
+th button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; font-weight: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+th button[data-on="1"] { color: var(--accent); }
+td.r, th.r { text-align: right; white-space: nowrap; }
+td.c, th.c { text-align: center; }
+tr.top td { background: color-mix(in srgb, var(--gold) 13%, transparent); }
+tr.off td { color: var(--muted); }
+.bank { font-weight: 800; display: flex; flex-direction: column; gap: 5px; min-width: 140px; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; font-weight: 500; }
+.tag { font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; color: var(--muted); white-space: nowrap; }
+.tag.win { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 800; }
+.tag.bad { border-color: var(--warn); color: var(--warn); }
+td input[type="checkbox"] { accent-color: var(--accent); width: 18px; height: 18px; }
+.foot { color: var(--muted); font-size: 13px; max-width: 84ch; }
+.empty { padding: 20px 6px; color: var(--muted); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* chart */
+svg.chart { display: block; width: 100%; height: auto; max-width: 100%; touch-action: pan-y; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 6px; border-radius: 2px; }
+.readout { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 13.5px; min-height: 22px; }
+.readout b { font-variant-numeric: tabular-nums; }
+.readout .m { color: var(--muted); font-weight: 700; }
+
+/* tabs */
+.tablist { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.tablist button { font: inherit; font-weight: 800; font-size: 14px; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 9px 12px; margin-bottom: -1px; cursor: pointer; }
+.tablist button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabpanel { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.tabpanel[hidden] { display: none; }
+.mx td.cell { text-align: right; background: color-mix(in srgb, var(--accent) calc(var(--k, 0) * 40%), transparent); }
+.mx td.best { outline: 2px solid var(--gold); outline-offset: -2px; font-weight: 800; }
+.mx td.dash { color: var(--muted); text-align: center; }
+.goal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items: end; }
+.sched-wrap { max-height: 420px; overflow: auto; }
+.sched-wrap thead th { position: sticky; top: 0; background: var(--surface); }
+.sched-cap td { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.inline { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+.inline .field { min-width: 170px; flex: 1; }
+
+.msg { max-width: 88%; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--line); overflow-wrap: anywhere; line-height: 1.55; }
+.msg.a { align-self: flex-start; background: var(--surface-2); }
+.msg ul { margin: 6px 0 0; padding-left: 20px; }
+.msg p + p { margin-top: 8px; }
+.hint { color: var(--muted); font-size: 13px; }
+
+/* editor */
+.editor td { vertical-align: middle; padding: 8px 6px; }
+.editor input[type="number"], .editor input[type="text"], .editor select { padding: 6px 8px; }
+.editor .w-name { min-width: 130px; }
+.editor .w-rate { min-width: 78px; }
+.editor .w-min { min-width: 112px; }
+.editor .w-term { min-width: 58px; width: 66px; }
+.editor .w-cap { min-width: 140px; }
+.editor td.c input { accent-color: var(--accent); width: 18px; height: 18px; }
+.disclaimer { color: var(--muted); font-size: 12.5px; max-width: 90ch; padding-top: 4px; }
+.fab { position: fixed; z-index: 25; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; text-decoration: none; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--accent); box-shadow: 0 6px 22px rgba(0,0,0,.35); }
+.fab svg { width: 18px; height: 18px; }
+.sup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 22px; align-items: start; }
+@media (max-width: 820px) { .sup { grid-template-columns: minmax(0, 1fr); } }
+.phone { font-family: var(--font-display); font-size: clamp(24px, 4vw, 32px); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.status { color: var(--good); font-weight: 800; min-height: 20px; }
+.chat { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; max-width: 880px; }
+.log { display: flex; flex-direction: column; gap: 12px; min-height: 240px; max-height: 58vh; overflow-y: auto; padding: 4px 2px; }
+.msg.u { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.compose { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.compose textarea { flex: 1; min-width: 200px; resize: vertical; min-height: 46px; max-height: 160px; }
+.avatar { display: flex; align-items: center; gap: 12px; }
+.avatar svg { width: 44px; height: 44px; flex: none; }
+.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.about-grid > div { border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.about-grid p { color: var(--muted); font-size: 14px; }
+.reports { display: flex; flex-direction: column; gap: 12px; }
+.report { border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.report-top { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; align-self: stretch; }
+.report .who { font-weight: 800; font-size: 16px; }
+.report .wrote, .report .when { color: var(--muted); font-size: 13px; }
+.report .when { margin-left: auto; }
+.report p { overflow-wrap: anywhere; white-space: pre-wrap; }
+.status.neg { color: var(--bad, #c0392b); }
+/* ===== motion & polish ===== */
+:root { --ml: 30%; --mt: 88%; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --ml: 90%; --mt: 24%; } }
+:root[data-theme="light"] { --ml: 90%; --mt: 24%; }
+@keyframes viewIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes drift { to { transform: translateY(-96px); } }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 55%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes shine { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+@keyframes flashUp { from { background-color: color-mix(in srgb, var(--good) 42%, transparent); } to { background-color: transparent; } }
+@keyframes flashDown { from { background-color: color-mix(in srgb, var(--warn) 42%, transparent); } to { background-color: transparent; } }
+@keyframes fadeout { to { opacity: 0; } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-24px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateX(-24px); } }
+
+.bg { overflow: hidden; }
+.bg svg { height: calc(100% + 96px); animation: drift 50s linear infinite; }
+.view:not([hidden]) { animation: viewIn .45s cubic-bezier(.2, .7, .2, 1) both; }
+.hero .facade { animation: floaty 7s ease-in-out infinite; }
+.hero h1 {
+  background: linear-gradient(100deg, var(--ink) 38%, var(--gold) 55%, var(--ink) 72%); background-size: 240% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  animation: shine 9s ease-in-out infinite;
+}
+.entering .pod, .entering .feat a, .entering .bk, .entering .stat, .entering .chg-row, .entering tbody tr {
+  animation: rise .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 45ms);
+}
+.entering .spark .ln, .entering .chart .ln { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease .15s forwards; }
+
+.btn { position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .25s ease, background .2s, color .2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 32%, transparent); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn:not(.ghost):not(.del)::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%); transform: translateX(-120%); transition: transform .6s ease; }
+.btn:not(.ghost):not(.del):hover::after { transform: translateX(120%); }
+.chip-btn { transition: background .2s, color .2s, border-color .2s, transform .15s; }
+.chip-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.nav a { transition: background .2s, color .2s; }
+.pill-btn, .seg button { transition: background .2s, color .2s; }
+tbody tr { transition: background .2s; }
+tbody tr:hover td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+
+.pod, .feat a, .bk, .stat { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.pod:hover, .feat a:hover, .bk:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 30px rgba(0, 0, 0, .22); }
+.pod { position: relative; overflow: hidden; }
+.pod-h { display: flex; gap: 10px; align-items: center; }
+.prod { font-weight: 500; color: var(--muted); font-size: 12.5px; }
+
+.mono { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; font-weight: 800; font-size: 12px; letter-spacing: .02em;
+  background: hsl(var(--h) 42% var(--ml)); color: hsl(var(--h) 75% var(--mt)); border: 1px solid hsl(var(--h) 40% 50% / .35); }
+.bankc { display: flex; gap: 11px; align-items: flex-start; }
+.bankc .mono { margin-top: 1px; }
+.bank { min-width: 150px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); padding: 16px 18px 16px 20px; display: flex; flex-direction: column; gap: 4px; position: relative; overflow: hidden; }
+.stat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+.stat b { font-family: var(--font-display); font-size: clamp(24px, 3.4vw, 32px); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat span { color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+
+.banks { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 10px; }
+.bk { font: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); cursor: pointer; }
+.bk-t { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.bk-t b { font-size: 14px; overflow-wrap: anywhere; line-height: 1.25; }
+.bk-t small { color: var(--muted); font-size: 11.5px; }
+.bk-r { font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; font-size: 13.5px; white-space: nowrap; }
+.bk-r.no { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+
+.chg { display: flex; flex-direction: column; gap: 8px; }
+.chg-row { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; background: color-mix(in srgb, var(--surface) 94%, transparent); }
+.chg-row .arr { font-size: 14px; width: 22px; text-align: center; }
+.chg-row.up .arr { color: var(--good); }
+.chg-row.down .arr { color: var(--warn); }
+.chg-t { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.chg-t b { overflow-wrap: anywhere; }
+.chg-t small { color: var(--muted); font-size: 12px; }
+.chg-v { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--muted); }
+.chg-v b { color: var(--ink); }
+
+.tag.chg { font-weight: 800; }
+.tag.chg.up { border-color: var(--good); color: var(--good); }
+.tag.chg.down { border-color: var(--warn); color: var(--warn); }
+tr.flash-up td { animation: flashUp 4.5s ease-out both; animation-delay: var(--fd, 0s); }
+tr.flash-down td { animation: flashDown 4.5s ease-out both; animation-delay: var(--fd, 0s); }
+.pod.flash-up::after, .pod.flash-down::after { content: ""; position: absolute; inset: 0; pointer-events: none; animation: fadeout 4.5s ease-out both; animation-delay: var(--fd, 0s); }
+.pod.flash-up::after { background: color-mix(in srgb, var(--good) 38%, transparent); }
+.pod.flash-down::after { background: color-mix(in srgb, var(--warn) 38%, transparent); }
+
+.live { font: inherit; display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; white-space: nowrap; }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: var(--good); animation: pulse 2.2s infinite; }
+.live.off i { background: var(--warn); animation: none; }
+.live:hover { color: var(--ink); border-color: var(--accent); }
+
+.toasts { position: fixed; z-index: 40; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; max-width: min(360px, calc(100vw - 32px)); pointer-events: none; }
+.toast { pointer-events: auto; background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-left: 4px solid var(--good); border-radius: 10px; padding: 10px 14px; font-size: 13.5px; line-height: 1.4; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); animation: toastIn .45s cubic-bezier(.2, .8, .2, 1) both; }
+.toast.down { border-left-color: var(--warn); }
+.toast.out { animation: toastOut .35s ease forwards; }
+@media (max-width: 560px) { .live span { max-width: 150px; overflow: hidden; text-overflow: ellipsis; } .fab span { display: none; } }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+</style>
+
+<div class="bg" aria-hidden="true">
+  <svg preserveAspectRatio="xMidYMin slice">
+    <defs>
+      <pattern id="rose" width="96" height="96" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="currentColor" stroke-width=".7" opacity=".16">
+          <circle cx="0" cy="0" r="18"/><circle cx="0" cy="0" r="30"/><circle cx="0" cy="0" r="42"/>
+          <circle cx="96" cy="0" r="18"/><circle cx="96" cy="0" r="30"/><circle cx="96" cy="0" r="42"/>
+          <circle cx="0" cy="96" r="18"/><circle cx="0" cy="96" r="30"/><circle cx="0" cy="96" r="42"/>
+          <circle cx="96" cy="96" r="18"/><circle cx="96" cy="96" r="30"/><circle cx="96" cy="96" r="42"/>
+          <circle cx="48" cy="48" r="14"/><circle cx="48" cy="48" r="26"/><circle cx="48" cy="48" r="38"/><circle cx="48" cy="48" r="50"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#rose)"/>
+  </svg>
+  <div class="fade"></div>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <div class="header-in">
+      <a class="brand" href="#main" data-go="main">
+        <svg viewBox="0 0 32 32" aria-hidden="true" fill="none">
+          <circle cx="16" cy="16" r="15" stroke="var(--line)" stroke-width="1.5"/>
+          <path d="M6 23h20M7 11l9-5 9 5" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 22v-8M16 22v-8M22 22v-8" stroke="var(--gold)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span>Депозит таразы</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Menu"></nav>
+      <div class="tools-r">
+        <button type="button" class="live off" id="live"><i></i><span id="liveTxt"></span></button>
+        <div class="seg" role="group" aria-label="Тіл / Язык">
+          <button type="button" id="langKk" aria-pressed="true">ҚАЗ</button>
+          <button type="button" id="langRu" aria-pressed="false">РУС</button>
+        </div>
+        <button type="button" class="pill-btn" id="themeBtn"></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="panel scn" id="scn" aria-label="Scenario">
+    <div class="field">
+      <label for="amount" data-i18n="amount"></label>
+      <div class="unit big"><input id="amount" type="number" min="0" step="10000" inputmode="numeric"><span>₸</span></div>
+      <div class="chips" id="presets" role="group"></div>
+    </div>
+    <div class="field">
+      <span class="lbl" data-i18n="term"></span>
+      <div class="chips" id="termChips" role="group"></div>
+      <div class="unit"><input id="termIn" type="number" min="1" max="120" inputmode="numeric" aria-label="Срок"><span data-i18n="mo"></span></div>
+    </div>
+    <div class="field">
+      <label for="topup" data-i18n="topup"></label>
+      <div class="unit"><input id="topup" type="number" min="0" step="5000" inputmode="numeric"><span>₸</span></div>
+    </div>
+    <div class="field">
+      <label for="infl" data-i18n="infl"></label>
+      <div class="unit"><input id="infl" type="number" min="0" max="100" step="0.5" inputmode="decimal"><span>%</span></div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <section class="view" data-view="main">
+    <div class="hero">
+      <svg class="facade" viewBox="0 0 360 230" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="14,70 180,8 346,70"/>
+        <polygon points="40,66 180,14 320,66" stroke-width="1"/>
+        <circle cx="180" cy="46" r="15"/>
+        <text x="180" y="52" text-anchor="middle" font-size="17" fill="currentColor" stroke="none" font-family="Georgia, serif">₸</text>
+        <rect x="24" y="70" width="312" height="14"/>
+        <rect x="46" y="92" width="20" height="100"/><rect x="98" y="92" width="20" height="100"/><rect x="150" y="92" width="20" height="100"/>
+        <rect x="190" y="92" width="20" height="100"/><rect x="242" y="92" width="20" height="100"/><rect x="294" y="92" width="20" height="100"/>
+        <path d="M40 92h32M92 92h32M144 92h32M184 92h32M236 92h32M288 92h32M40 192h32M92 192h32M144 192h32M184 192h32M236 192h32M288 192h32"/>
+        <rect x="26" y="194" width="308" height="8"/><rect x="16" y="202" width="328" height="8"/><rect x="6" y="210" width="348" height="8"/>
+      </svg>
+      <div>
+        <div class="eyebrow" data-i18n="eyebrow"></div>
+        <h1 data-i18n="h1" style="margin-top:10px"></h1>
+        <p class="lead" data-i18n="lead"></p>
+        <div class="cta">
+          <a class="btn" href="#compare" data-go="compare" data-i18n="ctaCompare"></a>
+          <a class="btn ghost" href="#assistant" data-go="assistant" data-i18n="ctaAI"></a>
+          <a class="btn ghost" href="#about" data-go="about" data-i18n="ctaAbout"></a>
+        </div>
+        <div class="note"><b data-i18n="noteTag"></b><span data-i18n="note"></span></div>
+      </div>
+      <div class="kpi-card" aria-live="polite">
+        <div class="eyebrow" data-i18n="heroBest"></div>
+        <div id="heroBody"></div>
+      </div>
+    </div>
+    <div>
+      <div class="stats" id="stats" style="margin-bottom:22px"></div>
+      <div class="sec-head" style="margin-bottom:12px"><h2 data-i18n="podiumH"></h2><p id="podiumNote"></p></div>
+      <div class="podium" id="podium"></div>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:12px"><h2 data-i18n="banksH"></h2><p data-i18n="banksP"></p></div>
+      <div class="banks" id="banks"></div>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:12px"><h2 data-i18n="chgH"></h2><p id="chgNote"></p></div>
+      <div class="chg" id="chg"></div>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:12px"><h2 data-i18n="featH"></h2></div>
+      <div class="feat" id="feat"></div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="view" data-view="compare" hidden>
+    <div class="view-head"><h1 data-i18n="navCompare"></h1><p data-i18n="compareP"></p></div>
+    <div class="panel">
+      <div class="chips" id="tierChips" role="group"></div><div id="bankFilter"></div><div class="filters">
+        <label class="check"><input type="checkbox" id="fTopup"><span data-i18n="fTopup"></span></label>
+        <label class="check"><input type="checkbox" id="fEarly"><span data-i18n="fEarly"></span></label>
+        <label class="check"><input type="checkbox" id="fOnly"><span data-i18n="fOnly"></span></label>
+      </div>
+    </div>
+    <section class="panel">
+      <div class="sec-head"><h2 data-i18n="secTable"></h2><p id="tableNote"></p></div>
+      <div class="scroll"><table><thead><tr id="thead"></tr></thead><tbody id="rows"></tbody></table></div>
+      <div class="actions"><button class="btn ghost" type="button" id="copyTable" data-i18n="copy"></button><span class="foot" id="copyMsg" role="status"></span></div>
+      <p class="foot" data-i18n="tableFoot"></p>
+      <p class="foot" data-i18n="srcRates"></p>
+    </section>
+    <section class="panel">
+      <div class="sec-head"><h2 data-i18n="secChart"></h2><p data-i18n="chartHint"></p></div>
+      <div id="chart"></div>
+      <div class="readout" id="readout"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="view" data-view="tools" hidden>
+    <div class="view-head"><h1 data-i18n="navTools"></h1><p data-i18n="toolsP"></p></div>
+    <section class="panel">
+      <div class="tablist" role="tablist" id="tabs"></div>
+      <div class="tabpanel" id="tp-mx" role="tabpanel"></div>
+      <div class="tabpanel" id="tp-goal" role="tabpanel" hidden></div>
+      <div class="tabpanel" id="tp-sch" role="tabpanel" hidden></div>
+      <div class="tabpanel" id="tp-kdif" role="tabpanel" hidden></div>
+    </section>
+  </section>
+
+  <!-- ASSISTANT -->
+  <section class="view" data-view="assistant" hidden>
+    <div class="view-head">
+      <div class="avatar">
+        <svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="var(--accent)"/><path d="M12 28l10-14 10 14M16 28h12" stroke="var(--accent-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="12" r="2.4" fill="var(--accent-ink)"/></svg>
+        <h1 data-i18n="navAI"></h1>
+      </div>
+      <p data-i18n="aiP"></p>
+    </div>
+    <section class="panel chat">
+      <div class="chips" id="quick" role="group"></div>
+      <div class="log" id="log" aria-live="polite"></div>
+      <div class="compose">
+        <textarea id="chatIn" rows="2" data-i18n-ph="aiPh"></textarea>
+        <button class="btn" type="button" id="send" data-i18n="aiSend"></button>
+        <button class="btn ghost" type="button" id="stop" data-i18n="aiStop" hidden></button>
+        <button class="btn ghost" type="button" id="clearChat" data-i18n="aiClear"></button>
+      </div>
+      <p class="hint" id="aiNote"></p>
+    </section>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="view" data-view="offers" hidden>
+    <div class="view-head"><h1 data-i18n="eTitle"></h1><p data-i18n="eHint"></p></div>
+    <section class="panel editor">
+      <div class="actions"><button class="btn" id="add" type="button" data-i18n="add"></button><button class="btn ghost" id="reset" type="button" data-i18n="reset"></button></div>
+      <div class="scroll"><table><thead><tr id="ehead"></tr></thead><tbody id="editRows"></tbody></table></div>
+    </section>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" data-view="about" hidden>
+    <div class="view-head"><h1 data-i18n="aboutTitle"></h1><p data-i18n="aboutP"></p></div>
+    <section class="panel"><div class="eyebrow" data-i18n="aboutNameH"></div><p data-i18n="aboutName"></p></section>
+    <div class="about-grid">
+      <div><h3 data-i18n="ab1H"></h3><p data-i18n="ab1"></p></div>
+      <div><h3 data-i18n="ab2H"></h3><p data-i18n="ab2"></p></div>
+      <div><h3 data-i18n="ab3H"></h3><p data-i18n="ab3"></p></div>
+      <div><h3 data-i18n="ab4H"></h3><p data-i18n="ab4"></p></div>
+    </div>
+    <div class="actions"><a class="btn" href="#compare" data-go="compare" data-i18n="ctaCompare"></a><a class="btn ghost" href="#support" data-go="support" data-i18n="supLink"></a></div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section class="view" data-view="support" hidden>
+    <div class="view-head"><h1 data-i18n="supTitle"></h1><p data-i18n="supP"></p></div>
+    <div class="sup" id="supBody"></div>
+  </section>
+
+  <p class="disclaimer" data-i18n="disclaimer"></p>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<a class="fab" id="fab" href="#support" data-go="support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg><span data-i18n="supFab"></span></a>
+
+<script>
+(function () {
+  var KEY = "deposit-scales-v4";
+  var TERMS = [3, 6, 9, 12, 18, 24, 36];
+  var PRESETS = [1000000, 5000000, 10000000, 25000000];
+  var VIEWS = ["main", "compare", "tools", "assistant", "offers", "about", "support"];
+  var NAV_KEYS = { main: "navMain", compare: "navCompare", tools: "navTools", assistant: "navAI", offers: "navOffers", about: "navAbout", support: "navSupport" };
+
+  var I = {
+    ru: {
+      aiHello: "Здравствуйте! Спросите меня о чём угодно: про депозиты и выбор банка, финансы, учёбу или любую другую тему.",
+      aiFail: "ИИ сейчас недоступен: не удалось подключиться к сервису. Попробуйте ещё раз позже.",
+      navAI: "ИИ-помощник",
+      ctaAI: "Спросить ИИ-помощника",
+      aiP: "Задайте любой вопрос: про депозиты, финансы, учёбу или что угодно другое. Если вопрос про вклады, помощник учтёт вашу сумму, срок и список предложений.",
+      aiPh: "Спросите о чём угодно",
+      aiSend: "Отправить",
+      aiStop: "Стоп",
+      aiClear: "Очистить чат",
+      aiThinking: "Думаю…",
+      q1: "Какой депозит лучше для моей суммы и срока?",
+      q2: "Стоит ли разделить сумму между банками?",
+      q3: "Что такое капитализация и как она влияет на доход?",
+      q4: "Как защитить деньги от инфляции?",
+      aiNote: "Ответы ИИ ‒ справка, а не финансовая рекомендация. Проверяйте условия в договоре банка.",
+      eRate: "Слишком много запросов. Подождите немного и попробуйте снова.",
+      eGeneric: "Ответ не получен. Попробуйте ещё раз.",
+      sumBest: "Лучший вариант: {0} ‒ итог {1}, прибыль {2}, реальная прибыль {3}.",
+      sumKdif: "Сумма выше лимита КФГД в части предложений: проверьте вкладку «Гарантия КФГД».",
+      sumNone: "Под ваши сумму и срок нет подходящих предложений.",
+      supAi: "Проблема с ИИ-помощником",
+      f5: "Помощник отвечает на любые вопросы и помогает выбрать банк.",
+      aiOffline: "Не удалось загрузить ИИ-сервис (нет интернета или он заблокирован). Пока помощник подсказывает лучший депозит по вашим цифрам.",
+      navAbout: "О сайте",
+      ctaAbout: "О сайте",
+      aboutTitle: "О сайте «Депозит таразы»",
+      aboutP: "Короткая справка: что это за сайт и чем он полезен.",
+      aboutNameH: "Почему «таразы»",
+      aboutName: "«Таразы» по-казахски значит «весы». Сайт взвешивает банковские депозиты в тенге друг против друга и показывает, какой выгоднее для вашей суммы и срока.",
+      ab1H: "Что считает",
+      ab1: "Для каждого предложения: итоговую сумму, прибыль, эффективную ставку и реальную прибыль после инфляции.",
+      ab2H: "Инструменты",
+      ab2: "Лучший срок, путь к цели, график по месяцам и проверка лимитов гарантии КФГД.",
+      ab3H: "Ваши данные",
+      ab3: "Банки и ставки в списке ‒ примеры. Введите реальные условия на странице «Предложения»: они хранятся только в вашем браузере.",
+      ab4H: "Важно знать",
+      ab4: "Расчёт ориентировочный: налоги, комиссии и смена ставок не учитываются. Условия проверяйте в договоре банка.",
+      supName: "Ваше имя",
+      supNamePh: "Введите имя",
+      supPublish: "Добавить обращение",
+      supNeed: "Укажите имя и опишите проблему.",
+      supAdded: "Обращение добавлено в список ниже.",
+      supListH: "Обращения",
+      supEmpty: "Пока обращений нет.",
+      supDel: "Удалить",
+      supWrote: "написал(а)",
+      navSupport: "Поддержка", supFab: "Поддержка", supTitle: "Техподдержка",
+      supP: "Что-то не работает? Напишите своё имя и опишите проблему: обращение появится в списке ниже. Его также можно отправить в Telegram.",
+      supType: "Тема", supBug: "Ошибка на сайте", supCalc: "Неверный расчёт", supIdea: "Идея или пожелание", supOther: "Другое",
+      supDesc: "Что случилось?", supPh: "Опишите, что вы делали и что пошло не так", supOpen: "Скопировать и открыть Telegram",
+      supCopyPhone: "Скопировать номер", supCopied: "Скопировано. Вставьте текст в чат Telegram.", supFail: "Не удалось скопировать. Выделите текст вручную.",
+      supNote: "Сайт работает без сервера, поэтому список обращений хранится только в этом браузере. Чтобы сообщение дошло до поддержки, нажмите «Скопировать и открыть Telegram» и вставьте текст в чат.",
+      supPhone: "Номер в Telegram", supLink: "Написать в поддержку", supCtx: "Данные сайта", supPreview: "Текст сообщения",
+      navMain: "Главная", navCompare: "Сравнение", navTools: "Инструменты", navOffers: "Предложения",
+      eyebrow: "Сравнение банковских депозитов · тенге", h1: "Какой депозит принесёт больше?",
+      lead: "Введите сумму и срок. Программа посчитает каждое предложение: итоговую сумму, прибыль и реальный доход после инфляции.",
+      ctaCompare: "Сравнить депозиты", 
+      noteTag: "Примеры", note: "Банки и ставки в списке ‒ примеры. На странице «Предложения» введите реальные условия ваших банков, и всё пересчитается.",
+      heroBest: "Лучший результат", kGain: "Прибыль", kReal: "Реальная прибыль", kEff: "Эффективная ставка",
+      amount: "Начальная сумма", term: "Срок", mo: "мес.", topup: "Ежемесячное пополнение", infl: "Ожидаемая инфляция, в год",
+      podiumH: "Три лучших предложения", podiumNote: "Для вашей суммы и срока",
+      featH: "Что здесь есть",
+      f1: "Таблица и график роста по всем предложениям, сортировка и фильтры.", f2: "Лучший срок, расчёт цели, график по месяцам и лимиты КФГД.", f3: "Коротко о сайте: что он считает и откуда берутся цифры.", f4: "Введите реальные ставки и условия ваших банков.",
+      open: "Открыть",
+      compareP: "Отметьте нужные условия и сравните предложения по итоговой сумме, прибыли и реальному доходу.",
+      toolsP: "Подберите срок, посчитайте путь к цели, посмотрите график по месяцам и проверьте гарантию КФГД.",
+      fTopup: "Можно пополнять", fEarly: "Можно снять досрочно", fOnly: "Только подходящие под мою сумму и срок",
+      noMatch: "Нет предложений под выбранные сумму и срок. Измените сумму или срок.",
+      spread: "Разница между лучшим и худшим подходящим предложением: {0}", oneOnly: "Подходит одно предложение",
+      secTable: "Сравнение предложений", tableNote: "Подходят: {0}, всего: {1}",
+      bank: "Банк", rate: "Ставка", eff: "Эфф.", cap: "Капитализация", final: "Итог", gain: "Прибыль", real: "Реальная", chartCol: "График",
+      capM: "Ежемесячно", capQ: "Ежеквартально", capE: "В конце срока",
+      bestTag: "Лучший", tTopup: "пополнение", tEarly: "досрочное снятие", tNoTopup: "без пополнения", tKdif: "выше лимита КФГД",
+      rTerm: "срок {0}–{1} мес.", rMin: "минимум {0}",
+      copy: "Скопировать таблицу", copied: "Скопировано", copyFail: "Не удалось скопировать",
+      tableFoot: "Эффективная ставка учитывает капитализацию за год. Реальная прибыль ‒ итоговая сумма с поправкой на инфляцию за вычетом внесённых денег, в сегодняшних тенге.",
+      secChart: "Как растёт сумма", chartHint: "Отметьте до трёх предложений в колонке «График». Проведите по графику, чтобы увидеть месяц.",
+      legendPut: "Внесённые деньги", month: "Месяц {0}", noChart: "Для графика нужно хотя бы одно подходящее предложение.",
+      tabMx: "Сроки", tabGoal: "Цель", tabSch: "График по месяцам", tabKdif: "Гарантия КФГД",
+      mxHint: "Какой срок выгоднее для вашей суммы. Лучшая ячейка в каждом сроке обведена. Прочерк ‒ срок не подходит или сумма меньше минимума.",
+      mxGain: "Прибыль", mxApy: "% годовых", mxMode: "Показывать",
+      gTarget: "Желаемая сумма", gHint: "Сколько нужно внести, чтобы к концу срока ({0} мес.) получить эту сумму.",
+      gInit: "Внести сразу", gMonthly: "Или пополнять в месяц", gNA: "пополнение недоступно", gDone: "цель достигнута без пополнения", gNone: "нет подходящих предложений",
+      sOffer: "Предложение", sMonth: "Мес.", sStart: "Начало", sAdd: "Пополнение", sInt: "Проценты", sEnd: "Остаток", sCapMark: "Строки с капитализацией выделены.",
+      kText: "КФГД гарантирует вклады в пределах лимита на одного вкладчика в одном банке. Проценты тоже входят в гарантируемую сумму.",
+      kLimSav: "Лимит: сберегательные вклады, ₸", kLimTerm: "Лимит: срочные и прочие вклады, ₸",
+      kType: "Тип", kSav: "сберегательный", kTerm: "срочный", kTotal: "Вклад с процентами", kLim: "Лимит", kOver: "Не покрыто", kOk: "всё под гарантией",
+      kSplit: "Чтобы вся сумма была под гарантией, её нужно разделить минимум на банков: {0}.",
+      kSrc: "Лимиты взяты из материала DigitalBusiness.kz со ссылкой на КФГД (июнь 2026). Сверьте актуальные суммы на сайте КФГД.",
+      kRule: "Сберегательным считается вклад без пополнения и досрочного снятия.",
+      
+      
+      
+      
+      
+      eTitle: "Список предложений", eHint: "Меняйте название, ставку и условия. Данные хранятся в этом браузере.",
+      add: "Добавить предложение", reset: "Вернуть примеры", del: "Удалить", newBank: "Новый банк",
+      eName: "Банк", eRateL: "Ставка, %", eMin: "Мин. сумма, ₸", eFrom: "Срок от, мес.", eTo: "Срок до, мес.", eCap: "Капитализация", eTop: "Пополнение", eEarly: "Досрочно",
+      disclaimer: "Расчёт ориентировочный. Он не учитывает налоги, комиссии и изменение ставок. Точные условия смотрите в договоре банка.",
+      themeAuto: "Тема: авто", themeLight: "Тема: светлая", themeDark: "Тема: тёмная", srcLink: "Источник",
+      liveOn: "Онлайн", liveOff: "Сохранённые данные",
+      liveTitleOn: "Ставки подгружаются из rates.json каждую минуту. Данные от {0}. Нажмите, чтобы обновить сейчас.",
+      liveTitleOff: "Не удалось загрузить rates.json (нет сети, файл не найден или страница открыта без сервера). Показаны сохранённые данные от {0}. Нажмите, чтобы повторить.",
+      statBanks: "банков", statOffers: "предложений со ставкой", statBest: "лучшая ставка", statAvg: "средняя ставка",
+      banksH: "20 банков второго уровня", banksP: "Нажмите на банк, чтобы увидеть его предложения", bkBest: "до {0}", bkNo: "нет данных",
+      tierAll: "Все банки", tierBig: "Крупнейшие", tierMid: "Средние", tierSmall: "Небольшие и с иностранным капиталом", tierIslamic: "Исламские",
+      chgH: "Последние изменения ставок", chgNote: "Записей: {0}",
+      chgEmpty: "Пока изменений нет. Когда банк изменит ставку, здесь появится запись, а нужная строка на сайте подсветится.",
+      toastUp: "Ставка выросла", toastDown: "Ставка снизилась", toastNew: "Новое предложение", toastMore: "и ещё изменений: {0}",
+      fBankL: "Банк: {0}", fClear: "Сбросить", eProd: "Продукт", rNoData: "нет данных о ставке", tUnver: "оценка",
+      srcRates: "Источники: сайты банков и порталы Finratings.kz, Digital Business, Profinance.kz, Finance.kz, Tengrinews (сентябрь–октябрь 2026). Дата данных по каждому предложению ‒ во всплывающей подсказке над ставкой. Пометка «оценка» ‒ ставка пересчитана из ГЭСВ или данные могли устареть. «Нет данных» ‒ ставку не удалось найти в открытых источниках: введите её на странице «Предложения».",
+      noteTag: "Данные",
+      note: "Ставки по 20 банкам ‒ ориентиры из открытых источников. Когда банк меняет ставку, данные обновляются, а сайт сам подхватывает изменение без перезагрузки и подсвечивает нужную строку.",
+      ab3: "Ставки взяты из открытых источников и собраны в файле rates.json. Когда банк меняет ставку, обновляется этот файл ‒ сайт сам подхватывает изменения. Свои условия можно ввести на странице «Предложения».",
+      f4: "Ставки и условия всех 20 банков; их можно поправить вручную.",
+      eHint: "Здесь можно поправить ставку или условия вручную: правки хранятся в этом браузере и не затираются обновлением из rates.json. Кнопка «Вернуть данные банков» вернёт данные из rates.json.",
+      reset: "Вернуть данные банков",
+      disclaimer: "Ставки ориентировочные: собраны из открытых источников на указанные даты и могут отличаться от действующих. Расчёт не учитывает налоги, комиссии и смену ставок. Точные условия смотрите в договоре банка."
+    },
+    kk: {
+      aiHello: "Сәлеметсіз бе! Кез келген сұрақ қойыңыз: депозиттер мен банк таңдау, қаржы, оқу немесе басқа тақырып.",
+      aiFail: "ИИ қазір қолжетімсіз: қызметке қосылу мүмкін болмады. Кейінірек қайта көріңіз.",
+      navAI: "ИИ көмекші",
+      ctaAI: "ИИ көмекшіден сұрау",
+      aiP: "Кез келген сұрақ қойыңыз: депозиттер, қаржы, оқу немесе басқа тақырып. Сұрақ салымдар туралы болса, көмекші сіздің сомаңызды, мерзіміңізді және ұсыныстар тізімін ескереді.",
+      aiPh: "Кез келген сұрақ қойыңыз",
+      aiSend: "Жіберу",
+      aiStop: "Тоқтату",
+      aiClear: "Чатты тазалау",
+      aiThinking: "Ойланып жатырмын…",
+      q1: "Менің сомам мен мерзіміме қай депозит тиімді?",
+      q2: "Соманы банктер арасында бөлген дұрыс па?",
+      q3: "Капитализация деген не және ол табысқа қалай әсер етеді?",
+      q4: "Ақшаны инфляциядан қалай қорғауға болады?",
+      aiNote: "ИИ жауаптары ‒ анықтама, қаржылық кеңес емес. Шарттарды банк шартынан тексеріңіз.",
+      eRate: "Сұраныс тым көп. Біраз күтіп, қайта көріңіз.",
+      eGeneric: "Жауап алынбады. Қайта көріңіз.",
+      sumBest: "Үздік нұсқа: {0} ‒ түпкі сома {1}, пайда {2}, нақты пайда {3}.",
+      sumKdif: "Кейбір ұсыныстарда сома ҚДКФ лимитінен жоғары: «ҚДКФ кепілдігі» қойындысын қараңыз.",
+      sumNone: "Сіздің сомаңыз бен мерзіміңізге сәйкес ұсыныс жоқ.",
+      supAi: "ИИ көмекшімен мәселе",
+      f5: "Көмекші кез келген сұраққа жауап беріп, банк таңдауға көмектеседі.",
+      aiOffline: "ИИ қызметін жүктеу мүмкін болмады (интернет жоқ немесе бұғатталған). Әзірге көмекші сіздің сандарыңыз бойынша ең тиімді депозитті айтады.",
+      navAbout: "Сайт туралы",
+      ctaAbout: "Сайт туралы",
+      aboutTitle: "«Депозит таразы» туралы",
+      aboutP: "Қысқаша анықтама: бұл қандай сайт және не үшін керек.",
+      aboutNameH: "Неге «таразы»",
+      aboutName: "«Таразы» ‒ орыс тілінде «весы». Сайт теңгедегі банк депозиттерін бір-бірімен өлшеп, сіздің сомаңыз бен мерзіміңізге қайсысы тиімді екенін көрсетеді.",
+      ab1H: "Не есептейді",
+      ab1: "Әр ұсыныс үшін: түпкі сома, пайда, тиімді мөлшерлеме және инфляциядан кейінгі нақты пайда.",
+      ab2H: "Құралдар",
+      ab2: "Үздік мерзім, мақсатқа жол, айлық кесте және ҚДКФ кепілдік лимиттерін тексеру.",
+      ab3H: "Сіздің деректеріңіз",
+      ab3: "Тізімдегі банктер мен мөлшерлемелер ‒ үлгі. «Ұсыныстар» бетінде нақты шарттарды енгізіңіз: олар тек сіздің браузеріңізде сақталады.",
+      ab4H: "Білу маңызды",
+      ab4: "Есептеу шамамен жасалған: салықтар, комиссиялар және мөлшерлеме өзгерісі ескерілмейді. Шарттарды банк шартынан тексеріңіз.",
+      supName: "Атыңыз",
+      supNamePh: "Атыңызды жазыңыз",
+      supPublish: "Өтінішті қосу",
+      supNeed: "Атыңызды жазып, мәселені сипаттаңыз.",
+      supAdded: "Өтініш төмендегі тізімге қосылды.",
+      supListH: "Өтініштер",
+      supEmpty: "Әзірге өтініш жоқ.",
+      supDel: "Жою",
+      supWrote: "жазды",
+      navSupport: "Қолдау", supFab: "Қолдау", supTitle: "Техникалық қолдау",
+      supP: "Бірдеңе жұмыс істемей тұр ма? Атыңызды жазып, мәселені сипаттаңыз: өтініш төмендегі тізімде пайда болады. Оны Telegram-ға да жіберуге болады.",
+      supType: "Тақырып", supBug: "Сайттағы қате", supCalc: "Есептеу қате", supIdea: "Идея немесе тілек", supOther: "Басқа",
+      supDesc: "Не болды?", supPh: "Не істегеніңізді және не дұрыс болмағанын жазыңыз", supOpen: "Көшіріп, Telegram-ды ашу",
+      supCopyPhone: "Нөмірді көшіру", supCopied: "Көшірілді. Мәтінді Telegram чатына қойыңыз.", supFail: "Көшіру мүмкін болмады. Мәтінді қолмен белгілеңіз.",
+      supNote: "Сайт серверсіз жұмыс істейді, сондықтан өтініштер тізімі тек осы браузерде сақталады. Хабарлама қолдауға жетуі үшін «Көшіріп, Telegram-ды ашу» батырмасын басып, мәтінді чатқа қойыңыз.",
+      supPhone: "Telegram нөмірі", supLink: "Қолдауға жазу", supCtx: "Сайт деректері", supPreview: "Хабарлама мәтіні",
+      navMain: "Басты бет", navCompare: "Салыстыру", navTools: "Құралдар", navOffers: "Ұсыныстар",
+      eyebrow: "Банк депозиттерін салыстыру · теңге", h1: "Қай депозит көбірек табыс әкеледі?",
+      lead: "Сома мен мерзімді енгізіңіз. Бағдарлама әр ұсынысты есептейді: түпкі сома, пайда және инфляциядан кейінгі нақты табыс.",
+      ctaCompare: "Депозиттерді салыстыру", 
+      noteTag: "Үлгілер", note: "Тізімдегі банктер мен мөлшерлемелер үлгі ретінде берілген. «Ұсыныстар» бетінде өз банктеріңіздің нақты шарттарын енгізіңіз, барлығы қайта есептеледі.",
+      heroBest: "Үздік нәтиже", kGain: "Пайда", kReal: "Нақты пайда", kEff: "Тиімді мөлшерлеме",
+      amount: "Бастапқы сома", term: "Мерзімі", mo: "ай", topup: "Ай сайынғы толықтыру", infl: "Болжамды инфляция, жылына",
+      podiumH: "Үш үздік ұсыныс", podiumNote: "Сіздің сомаңыз бен мерзіміңіз үшін",
+      featH: "Мұнда не бар",
+      f1: "Барлық ұсыныстар бойынша кесте мен өсу графигі, сұрыптау және сүзгілер.", f2: "Үздік мерзім, мақсатқа есеп, айлық кесте және ҚДКФ лимиттері.", f3: "Сайт туралы қысқаша: не есептейді және сандар қайдан алынады.", f4: "Банктеріңіздің нақты мөлшерлемелері мен шарттарын енгізіңіз.",
+      open: "Ашу",
+      compareP: "Қажетті шарттарды белгілеп, ұсыныстарды түпкі сома, пайда және нақты табыс бойынша салыстырыңыз.",
+      toolsP: "Мерзімді таңдаңыз, мақсатқа жолды есептеңіз, айлық кестені қараңыз және ҚДКФ кепілдігін тексеріңіз.",
+      fTopup: "Толықтыру мүмкіндігі бар", fEarly: "Мерзімінен бұрын алуға болады", fOnly: "Тек сомам мен мерзіміме сәйкестері",
+      noMatch: "Таңдалған сома мен мерзімге сәйкес ұсыныс жоқ. Соманы немесе мерзімді өзгертіңіз.",
+      spread: "Үздік пен ең әлсіз сәйкес ұсыныстың арасы: {0}", oneOnly: "Бір ұсыныс сәйкес келеді",
+      secTable: "Ұсыныстарды салыстыру", tableNote: "Сәйкес келеді: {0}, барлығы: {1}",
+      bank: "Банк", rate: "Мөлшерлеме", eff: "Тиімді", cap: "Капитализация", final: "Түпкі сома", gain: "Пайда", real: "Нақты", chartCol: "График",
+      capM: "Айлық", capQ: "Тоқсандық", capE: "Мерзім соңында",
+      bestTag: "Үздік", tTopup: "толықтыру", tEarly: "ерте алу", tNoTopup: "толықтыру жоқ", tKdif: "ҚДКФ лимитінен жоғары",
+      rTerm: "мерзімі {0}–{1} ай", rMin: "ең аз сома {0}",
+      copy: "Кестені көшіру", copied: "Көшірілді", copyFail: "Көшіру мүмкін болмады",
+      tableFoot: "Тиімді мөлшерлеме бір жылдағы капитализацияны ескереді. Нақты пайда ‒ инфляцияға түзетілген түпкі сомадан салынған ақшаны алып тастағандағы, бүгінгі теңгемен өлшенген табыс.",
+      secChart: "Сома қалай өседі", chartHint: "«График» бағанында үш ұсынысқа дейін белгілеңіз. Айды көру үшін графикті басып жүргізіңіз.",
+      legendPut: "Салынған ақша", month: "{0}-ай", noChart: "График үшін кемінде бір сәйкес ұсыныс қажет.",
+      tabMx: "Мерзімдер", tabGoal: "Мақсат", tabSch: "Айлық кесте", tabKdif: "ҚДКФ кепілдігі",
+      mxHint: "Сіздің сомаңызға қандай мерзім тиімді. Әр мерзімдегі үздік ұяшық белгіленген. Сызықша ‒ мерзім немесе ең аз сома сәйкес емес.",
+      mxGain: "Пайда", mxApy: "Жылдық %", mxMode: "Көрсету",
+      gTarget: "Қажетті сома", gHint: "Мерзім соңында ({0} ай) осы соманы алу үшін қанша салу керек.",
+      gInit: "Бірден салу", gMonthly: "Немесе ай сайын толықтыру", gNA: "толықтыру жоқ", gDone: "мақсатқа толықтырусыз жетеді", gNone: "сәйкес ұсыныс жоқ",
+      sOffer: "Ұсыныс", sMonth: "Ай", sStart: "Басы", sAdd: "Толықтыру", sInt: "Пайыз", sEnd: "Қалдық", sCapMark: "Капитализация болатын жолдар белгіленген.",
+      kText: "ҚДКФ бір салымшының бір банктегі салымдарын лимит шегінде кепілдендіреді. Пайыздар да кепілдік сомасына кіреді.",
+      kLimSav: "Лимит: жинақтаушы салымдар, ₸", kLimTerm: "Лимит: мерзімді және өзге салымдар, ₸",
+      kType: "Түрі", kSav: "жинақтаушы", kTerm: "мерзімді", kTotal: "Пайызымен салым", kLim: "Лимит", kOver: "Қамтылмаған", kOk: "бәрі кепілдікте",
+      kSplit: "Бүкіл сома кепілдікте болуы үшін оны кемінде мынша банкке бөлу керек: {0}.",
+      kSrc: "Лимиттер DigitalBusiness.kz материалынан алынған (ҚДКФ дерегіне сілтеме, 2026 жылғы маусым). Өзекті сомаларды ҚДКФ сайтынан тексеріңіз.",
+      kRule: "Толықтырусыз және мерзімінен бұрын алусыз салым жинақтаушы болып саналады.",
+      
+      
+      
+      
+      
+      eTitle: "Ұсыныстар тізімі", eHint: "Банк атауын, мөлшерлемені және шарттарды өзгертіңіз. Деректер осы браузерде сақталады.",
+      add: "Ұсыныс қосу", reset: "Үлгілерді қайтару", del: "Жою", newBank: "Жаңа банк",
+      eName: "Банк", eRateL: "Мөлшерлеме, %", eMin: "Ең аз сома, ₸", eFrom: "Мерзім бастап, ай", eTo: "Мерзім дейін, ай", eCap: "Капитализация", eTop: "Толықтыру", eEarly: "Ерте алу",
+      disclaimer: "Есептеу шамамен жасалған. Салықтар, комиссиялар және мөлшерлеменің өзгеруі ескерілмейді. Нақты шарттарды банк шартынан қараңыз.",
+      themeAuto: "Тақырып: авто", themeLight: "Тақырып: жарық", themeDark: "Тақырып: қараңғы", srcLink: "Дереккөз",
+      liveOn: "Онлайн", liveOff: "Сақталған деректер",
+      liveTitleOn: "Мөлшерлемелер rates.json файлынан әр минут сайын жүктеледі. Деректер: {0}. Қазір жаңарту үшін басыңыз.",
+      liveTitleOff: "rates.json жүктелмеді (желі жоқ, файл табылмады немесе бет серверсіз ашылған). Сақталған деректер көрсетілген: {0}. Қайталау үшін басыңыз.",
+      statBanks: "банк", statOffers: "мөлшерлемесі бар ұсыныс", statBest: "үздік мөлшерлеме", statAvg: "орташа мөлшерлеме",
+      banksH: "20 екінші деңгейдегі банк", banksP: "Ұсыныстарын көру үшін банкті басыңыз", bkBest: "{0} дейін", bkNo: "дерек жоқ",
+      tierAll: "Барлық банктер", tierBig: "Ірі банктер", tierMid: "Орташа банктер", tierSmall: "Шағын және шетел капиталы бар", tierIslamic: "Исламдық",
+      chgH: "Мөлшерлемелердің соңғы өзгерістері", chgNote: "Жазба саны: {0}",
+      chgEmpty: "Әзірге өзгеріс жоқ. Банк мөлшерлемені өзгерткенде, осында жазба пайда болады, ал сайттағы қажетті жол түспен белгіленеді.",
+      toastUp: "Мөлшерлеме өсті", toastDown: "Мөлшерлеме төмендеді", toastNew: "Жаңа ұсыныс", toastMore: "және тағы өзгеріс: {0}",
+      fBankL: "Банк: {0}", fClear: "Тазалау", eProd: "Өнім", rNoData: "мөлшерлеме туралы дерек жоқ", tUnver: "бағалау",
+      srcRates: "Дереккөздер: банктердің сайттары және Finratings.kz, Digital Business, Profinance.kz, Finance.kz, Tengrinews порталдары (2026 жылғы қыркүйек–қазан). Әр ұсыныстың дерек күні мөлшерлеме үстіндегі қалқымалы кеңесте көрсетілген. «Бағалау» белгісі ‒ мөлшерлеме ЖНӘМ-нен қайта есептелген немесе дерек ескірген болуы мүмкін. «Дерек жоқ» ‒ мөлшерлеме ашық дереккөздерден табылмады: оны «Ұсыныстар» бетінде енгізіңіз.",
+      noteTag: "Деректер",
+      note: "20 банк бойынша мөлшерлемелер ‒ ашық дереккөздерден алынған бағдар. Банк мөлшерлемені өзгерткенде деректер жаңарады, ал сайт мұны бетті қайта жүктемей-ақ өзі байқап, қажетті жолды түспен белгілейді.",
+      ab3: "Мөлшерлемелер ашық дереккөздерден алынып, rates.json файлына жиналған. Банк мөлшерлемені өзгерткенде осы файл жаңартылады, ал сайт өзгерісті өзі қабылдайды. Өз шарттарыңызды «Ұсыныстар» бетінде енгізуге болады.",
+      f4: "20 банктің мөлшерлемелері мен шарттары; оларды қолмен түзетуге болады.",
+      eHint: "Мұнда мөлшерлеме мен шарттарды қолмен түзетуге болады: өзгерістер осы браузерде сақталады және rates.json жаңартуымен өшірілмейді. «Банк деректерін қайтару» батырмасы rates.json деректерін қайтарады.",
+      reset: "Банк деректерін қайтару",
+      disclaimer: "Мөлшерлемелер шамамен берілген: ашық дереккөздерден көрсетілген күндерге жиналған және қолданыстағыдан өзгеше болуы мүмкін. Есептеуде салықтар, комиссиялар және мөлшерлеменің өзгеруі ескерілмейді. Нақты шарттарды банк шартынан қараңыз."
+    }
+  };
+
+  var FEED_DEFAULT = {
+ "updated": "2026-10-29T08:50:00+05:00",
+ "note": "Ориентировочные ставки из открытых источников. Редактируйте этот файл: сайт подхватит изменения сам.",
+ "banks": [
+  {
+   "key": "halyk",
+   "name": "Halyk Bank",
+   "tier": "big",
+   "offers": [
+    {
+     "id": 1,
+     "product": "QORJIN",
+     "rate": 17.95,
+     "min": 50000,
+     "minM": 3,
+     "maxM": 12,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026-05",
+     "note": "Данные за май 2026 (ГЭСВ 19,5 %)"
+    },
+    {
+     "id": 2,
+     "product": "Универсальный",
+     "rate": 15.0,
+     "min": 1000,
+     "minM": 12,
+     "maxM": 36,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": true,
+     "asof": "2026-07",
+     "note": "15 % на 12 месяцев (Tengrinews, июль 2026)"
+    }
+   ]
+  },
+  {
+   "key": "kaspi",
+   "name": "Kaspi.kz",
+   "tier": "big",
+   "offers": [
+    {
+     "id": 3,
+     "product": "Накопительный",
+     "rate": 17.5,
+     "min": 100000,
+     "minM": 3,
+     "maxM": 12,
+     "cap": 1,
+     "topup": true,
+     "early": false,
+     "verified": false,
+     "asof": "2026-08",
+     "note": "Пересчитано из ГЭСВ 19 % (август 2026)"
+    },
+    {
+     "id": 4,
+     "product": "Kaspi Депозит",
+     "rate": 15.0,
+     "min": 1000,
+     "minM": 12,
+     "maxM": 13,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-10-21",
+     "note": "367 дней, проценты выплачиваются ежемесячно"
+    }
+   ]
+  },
+  {
+   "key": "bcc",
+   "name": "Банк ЦентрКредит",
+   "tier": "big",
+   "offers": [
+    {
+     "id": 5,
+     "product": "Моя цель",
+     "rate": 17.4,
+     "min": 100000,
+     "minM": 3,
+     "maxM": 12,
+     "cap": 1,
+     "topup": true,
+     "early": false,
+     "verified": false,
+     "asof": "2026-08",
+     "note": "ГЭСВ до 18,86 %. С 16.10.2026 банк менял ставки: сверьте"
+    }
+   ]
+  },
+  {
+   "key": "otbasy",
+   "name": "Отбасы банк",
+   "tier": "big",
+   "offers": [
+    {
+     "id": 6,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Ставка по депозиту не найдена в открытых источниках"
+    }
+   ]
+  },
+  {
+   "key": "forte",
+   "name": "ForteBank",
+   "tier": "big",
+   "offers": [
+    {
+     "id": 7,
+     "product": "Депозит со снятием",
+     "rate": 14.6,
+     "min": 1000,
+     "minM": 12,
+     "maxM": 13,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": true,
+     "asof": "2026-08-04",
+     "note": "ГЭСВ 15,72 % на 13 месяцев"
+    },
+    {
+     "id": 8,
+     "product": "Срочный депозит",
+     "rate": 17.6,
+     "min": 15000,
+     "minM": 3,
+     "maxM": 12,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-10-21",
+     "note": "Проценты выплачиваются ежемесячно"
+    }
+   ]
+  },
+  {
+   "key": "alatau",
+   "name": "Alatau City Bank",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 9,
+     "product": "Baytaq",
+     "rate": 16.1,
+     "min": 10000,
+     "minM": 3,
+     "maxM": 24,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-10",
+     "note": "Максимальная ставка по данным Finratings.kz"
+    }
+   ]
+  },
+  {
+   "key": "freedom",
+   "name": "Freedom Bank",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 10,
+     "product": "Стратегия",
+     "rate": 18.11,
+     "min": 500000,
+     "minM": 3,
+     "maxM": 3,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-10-28",
+     "note": "ГЭСВ 19,50 %, действует с 28.10.2026"
+    },
+    {
+     "id": 11,
+     "product": "Копилка (6 мес.)",
+     "rate": 13.8,
+     "min": 500,
+     "minM": 6,
+     "maxM": 6,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": true,
+     "asof": "2026-10-28",
+     "note": "ГЭСВ 14,74 %, действует с 28.10.2026"
+    },
+    {
+     "id": 12,
+     "product": "Копилка (12 мес.)",
+     "rate": 14.85,
+     "min": 500,
+     "minM": 12,
+     "maxM": 12,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": false,
+     "asof": "2026-07",
+     "note": "Оценка по ГЭСВ 15,95 %"
+    }
+   ]
+  },
+  {
+   "key": "rbk",
+   "name": "Bank RBK",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 13,
+     "product": "SAFE",
+     "rate": 18.37,
+     "min": 15000,
+     "minM": 3,
+     "maxM": 3,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026-06",
+     "note": "ГЭСВ 20 % на 3 месяца"
+    },
+    {
+     "id": 14,
+     "product": "Grand",
+     "rate": 14.9,
+     "min": 15000,
+     "minM": 6,
+     "maxM": 6,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-08-31",
+     "note": "ГЭСВ 16 % на 6 месяцев"
+    },
+    {
+     "id": 15,
+     "product": "Depositum",
+     "rate": 15.4,
+     "min": 15000,
+     "minM": 3,
+     "maxM": 24,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": false,
+     "asof": "2026",
+     "note": "До 15,4 % (Vsebanki.kz)"
+    }
+   ]
+  },
+  {
+   "key": "eurasian",
+   "name": "Евразийский банк",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 16,
+     "product": "TURBO Deposit Накопительный",
+     "rate": 18.83,
+     "min": 1000,
+     "minM": 3,
+     "maxM": 6,
+     "cap": 1,
+     "topup": true,
+     "early": false,
+     "verified": false,
+     "asof": "2026-07-25",
+     "note": "Ставка для коротких сроков; на длинные ниже"
+    }
+   ]
+  },
+  {
+   "key": "bereke",
+   "name": "Bereke Bank",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 17,
+     "product": "Bereke+",
+     "rate": 17.91,
+     "min": 100000,
+     "minM": 3,
+     "maxM": 6,
+     "cap": 1,
+     "topup": true,
+     "early": false,
+     "verified": true,
+     "asof": "2026-08-31",
+     "note": "ГЭСВ до 19,5 %"
+    },
+    {
+     "id": 18,
+     "product": "Күн Сайын",
+     "rate": 12.9,
+     "min": 1000,
+     "minM": 1,
+     "maxM": 36,
+     "cap": 1,
+     "topup": true,
+     "early": true,
+     "verified": false,
+     "asof": "2026",
+     "note": "Гибкий вклад, до 12,9 % (Vsebanki.kz)"
+    }
+   ]
+  },
+  {
+   "key": "homecredit",
+   "name": "Home Credit Bank",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 19,
+     "product": "Сберегательный Хоум+",
+     "rate": 18.65,
+     "min": 100000,
+     "minM": 3,
+     "maxM": 6,
+     "cap": 1,
+     "topup": true,
+     "early": false,
+     "verified": false,
+     "asof": "2026-10",
+     "note": "Оценка по ГЭСВ до 20,5 %"
+    },
+    {
+     "id": 20,
+     "product": "Хоум (12 мес.)",
+     "rate": 15.7,
+     "min": 100000,
+     "minM": 12,
+     "maxM": 13,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026-04",
+     "note": "Оценка по ГЭСВ 17 % (апрель 2026)"
+    }
+   ]
+  },
+  {
+   "key": "altyn",
+   "name": "Altyn Bank",
+   "tier": "mid",
+   "offers": [
+    {
+     "id": 21,
+     "product": "Сберегательный (6 мес.)",
+     "rate": 18.1,
+     "min": 10000,
+     "minM": 3,
+     "maxM": 6,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026-06",
+     "note": "ГЭСВ 20 % на 6 месяцев (июнь 2026)"
+    },
+    {
+     "id": 22,
+     "product": "Сберегательный (12 мес.)",
+     "rate": 13.0,
+     "min": 10000,
+     "minM": 12,
+     "maxM": 12,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026-06",
+     "note": "ГЭСВ 13,8 % на 12 месяцев (июнь 2026)"
+    }
+   ]
+  },
+  {
+   "key": "icbc",
+   "name": "Торгово-промышленный Банк Китая в г. Алматы",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 23,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Ставка не найдена в открытых источниках"
+    }
+   ]
+  },
+  {
+   "key": "boc",
+   "name": "Банк Китая (Казахстан)",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 24,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Ставка не найдена в открытых источниках"
+    }
+   ]
+  },
+  {
+   "key": "shinhan",
+   "name": "Шинхан Банк",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 25,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Ставка не найдена в открытых источниках"
+    }
+   ]
+  },
+  {
+   "key": "nurbank",
+   "name": "Нурбанк",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 26,
+     "product": "Нур Алтын Сберегательный",
+     "rate": 17.52,
+     "min": 5000,
+     "minM": 3,
+     "maxM": 6,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": true,
+     "asof": "2026-10-10",
+     "note": "Данные Profinance.kz на 10.10.2026"
+    }
+   ]
+  },
+  {
+   "key": "kmf",
+   "name": "KMF Банк",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 27,
+     "product": "Депозит Плюс (6 мес.)",
+     "rate": 16.55,
+     "min": 100000,
+     "minM": 6,
+     "maxM": 6,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026",
+     "note": "ГЭСВ до 20 %"
+    },
+    {
+     "id": 28,
+     "product": "Депозит Плюс (13 мес.)",
+     "rate": 14.0,
+     "min": 100000,
+     "minM": 13,
+     "maxM": 13,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026",
+     "note": "ГЭСВ до 16 %"
+    }
+   ]
+  },
+  {
+   "key": "vtb",
+   "name": "Банк ВТБ (Казахстан)",
+   "tier": "small",
+   "offers": [
+    {
+     "id": 29,
+     "product": "Депозитные сертификаты",
+     "rate": 17.0,
+     "min": 100000,
+     "minM": 6,
+     "maxM": 12,
+     "cap": 1,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "2026",
+     "note": "По данным Finance.kz"
+    }
+   ]
+  },
+  {
+   "key": "alhilal",
+   "name": "Al-Hilal Bank",
+   "tier": "islamic",
+   "offers": [
+    {
+     "id": 30,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Исламский банк: доходность по принципу мудараба не фиксируется (Finance.kz показывает до 25 %)"
+    }
+   ]
+  },
+  {
+   "key": "zaman",
+   "name": "Заман-Банк",
+   "tier": "islamic",
+   "offers": [
+    {
+     "id": 31,
+     "product": "Срочные депозиты",
+     "rate": 0,
+     "min": 0,
+     "minM": 3,
+     "maxM": 36,
+     "cap": 0,
+     "topup": false,
+     "early": false,
+     "verified": false,
+     "asof": "",
+     "noData": true,
+     "note": "Ставка не найдена в открытых источниках"
+    }
+   ]
+  }
+ ]
+};
+  var RATES_URL = "rates.json";
+  var REDUCED = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var tv = {}, flash = {}, feedLive = false, entT = null, polling = false;
+
+  function flatten(feed) {
+    var out = [];
+    (feed.banks || []).forEach(function (b) {
+      (b.offers || []).forEach(function (p) {
+        var rate = +p.rate || 0;
+        out.push({
+          id: +p.id, bank: b.key, name: b.name, tier: b.tier || "custom", product: p.product || "",
+          rate: rate, min: +p.min || 0, minM: +p.minM || 1, maxM: +p.maxM || 36, cap: +p.cap || 0,
+          topup: !!p.topup, early: !!p.early, noData: !!p.noData || !(rate > 0),
+          verified: !!p.verified, asof: p.asof || "", note: p.note || ""
+        });
+      });
+    });
+    return out;
+  }
+  function sample() { return flatten(FEED_DEFAULT); }
+  function oname(o) { return o.name + (o.product ? " · " + o.product : ""); }
+  function fmtInt(v) { return String(Math.round(v)); }
+  function dstr(ts) {
+    return new Date(ts).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  }
+  function mono(name) {
+    var s = String(name), w = s.replace(/[^A-Za-zА-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі0-9 ]/g, " ").trim().split(/\s+/);
+    var ini = (w[0] ? w[0].charAt(0) : "?") + (w[1] && w[1].length > 1 ? w[1].charAt(0) : "");
+    var h = 0, i;
+    for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+    return '<span class="mono" style="--h:' + h + '">' + esc(ini.toUpperCase()) + '</span>';
+  }
+  function tierName(k) {
+    var m = { big: "tierBig", mid: "tierMid", small: "tierSmall", islamic: "tierIslamic" };
+    return m[k] ? t(m[k]) : "";
+  }
+  function tween(el, key, to, fmt, dur) {
+    if (!el) return;
+    var from = tv.hasOwnProperty(key) ? tv[key] : 0;
+    tv[key] = to;
+    if (REDUCED || from === to) { el.textContent = fmt(to); return; }
+    el.textContent = fmt(from);
+    var s = performance.now();
+    function step(now) {
+      if (tv[key] !== to) return;
+      var k = Math.min(1, (now - s) / dur);
+      k = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(from + (to - from) * k);
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function startEnter() {
+    var b = document.body;
+    tv = {};
+    b.classList.remove("entering");
+    void b.offsetWidth;
+    b.classList.add("entering");
+    clearTimeout(entT);
+    entT = setTimeout(function () { b.classList.remove("entering"); }, 1400);
+  }
+  function flashInfo(id) {
+    var f = flash[id];
+    if (!f || Date.now() > f.until) return { c: "", s: "" };
+    return { c: " flash-" + f.dir, s: "--fd:-" + ((Date.now() - f.start) / 1000).toFixed(2) + "s;" };
+  }
+  function lastChange(id) {
+    var list = state.changes || [], i;
+    for (i = 0; i < list.length; i++) if (list[i].id === id && Date.now() - list[i].ts < 864e5) return list[i];
+    return null;
+  }
+  function toast(html, dir) {
+    var box = $("toasts"); if (!box) return;
+    var d = document.createElement("div");
+    d.className = "toast " + dir; d.innerHTML = html;
+    box.appendChild(d);
+    while (box.children.length > 4) box.removeChild(box.firstChild);
+    setTimeout(function () { d.classList.add("out"); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 400); }, 7500);
+  }
+  function showToasts(ch) {
+    ch.slice(0, 3).forEach(function (c) {
+      var up = c.to > c.from;
+      toast('<b>' + esc(t(c.from === 0 ? "toastNew" : up ? "toastUp" : "toastDown")) + '</b><br>' + esc(c.name) + ': ' +
+        (c.from ? pct(c.from) : "—") + ' → <b>' + (c.to ? pct(c.to) : "—") + '</b>', up ? "up" : "down");
+    });
+    if (ch.length > 3) toast(esc(t("toastMore", ch.length - 3)), "up");
+  }
+  /* Merge a rates feed into the live state: detect changed rates, flash them, log them, toast them. */
+  function applyFeed(feed) {
+    var before = JSON.stringify(state.offers), incoming = flatten(feed), hidden = state.hidden || [];
+    var changes = [], byId = {}, next = [], now = Date.now();
+    state.offers.forEach(function (o) { byId[o.id] = o; });
+    incoming.forEach(function (n) {
+      if (hidden.indexOf(n.id) >= 0) return;
+      var cur = byId[n.id];
+      if (!cur) {
+        if (state.feedSeen && !n.noData) changes.push({ id: n.id, name: oname(n), from: 0, to: n.rate, ts: now });
+        next.push(n); return;
+      }
+      if (cur.edited) { next.push(cur); return; }
+      if (Math.abs((+cur.rate || 0) - n.rate) > 1e-9 && !(cur.noData && n.noData)) {
+        changes.push({ id: n.id, name: oname(n), from: cur.noData ? 0 : +cur.rate, to: n.rate, ts: now });
+      }
+      next.push(n);
+    });
+    state.offers.forEach(function (o) { if (o.id >= 1000) next.push(o); });
+    state.offers = next; state.feedSeen = true; state.feedUpdated = feed.updated || state.feedUpdated;
+    if (changes.length) {
+      changes.forEach(function (c) { flash[c.id] = { dir: c.to > c.from ? "up" : "down", start: now, until: now + 6000 }; });
+      state.changes = changes.concat(state.changes || []).slice(0, 30);
+      showToasts(changes);
+    }
+    save();
+    if (JSON.stringify(state.offers) !== before || changes.length) {
+      if (current !== "support") refresh();
+      var ed = $("editRows");
+      if (ed && !ed.contains(document.activeElement)) renderEditor();
+    }
+  }
+  function renderLive() {
+    var b = $("live"); if (!b) return;
+    var d = new Date(state.feedUpdated), ok = !isNaN(d), loc = "ru-RU";
+    var short = ok ? d.toLocaleDateString(loc, { day: "2-digit", month: "2-digit" }) + " " + d.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" }) : "";
+    b.className = "live" + (feedLive ? "" : " off");
+    $("liveTxt").textContent = t(feedLive ? "liveOn" : "liveOff") + (short ? " · " + short : "");
+    b.title = t(feedLive ? "liveTitleOn" : "liveTitleOff", ok ? d.toLocaleString(loc) : "");
+    b.setAttribute("aria-label", b.title);
+  }
+  async function pollFeed() {
+    if (polling) return;
+    polling = true;
+    try {
+      var r = await fetch(RATES_URL + "?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) throw new Error("http");
+      var feed = await r.json();
+      if (!feed || !Array.isArray(feed.banks)) throw new Error("bad");
+      applyFeed(feed); feedLive = true;
+    } catch (e) { feedLive = false; }
+    polling = false; renderLive();
+  }
+
+  var state = {
+    lang: "kk", theme: "auto", amount: 5000000, term: 12, topup: 0, infl: 10,
+    sortKey: "final", sortDir: -1, fTopup: false, fEarly: false, fOnly: false,
+    chartSel: [], tab: "mx", mxMode: "gain", goal: 10000000, schedId: null,
+    limSav: 20000000, limTerm: 10000000, offers: sample(), fTier: "all", fBank: null, hidden: [], changes: [], feedUpdated: FEED_DEFAULT.updated, feedSeen: false,
+    reports: []
+  };
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved && Array.isArray(saved.offers) && saved.offers.length) state = Object.assign(state, saved);
+  } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var current = "main";
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function t(k) {
+    var s = (I[state.lang] && I[state.lang][k]) || I.ru[k] || k;
+    for (var i = 1; i < arguments.length; i++) s = s.replace("{" + (i - 1) + "}", arguments[i]);
+    return s;
+  }
+  function money(n) { return Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ") + " ₸"; }
+  function pct(n) { return n.toLocaleString("ru-RU", { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + " %"; }
+  function signed(n) { return (n >= 0 ? "+" : "−") + money(Math.abs(n)); }
+  function capName(c) { return c === 1 ? t("capM") : c === 3 ? t("capQ") : t("capE"); }
+  function plain(s) { return String(s).replace(/ /g, " "); }
+
+  /* Core math: interest accrues monthly on the current base; it joins the base at each capitalization date, any remainder is paid at maturity. */
+  function calc(o, P, months, topup, rate) {
+    var capM = o.cap === 0 ? Infinity : o.cap;
+    var base = P, accrued = 0, put = P, add = o.topup ? topup : 0, series = [P];
+    for (var m = 1; m <= months; m++) {
+      if (add > 0) { base += add; put += add; }
+      accrued += base * (rate / 100) / 12;
+      if (m % capM === 0) { base += accrued; accrued = 0; }
+      series.push(base + accrued);
+    }
+    return { final: base + accrued, put: put, series: series };
+  }
+  function effective(o) { return (calc(o, 1, 12, 0, +o.rate || 0).final - 1) * 100; }
+  function kdifType(o) { return (!o.topup && !o.early) ? "sav" : "term"; }
+  function kdifLimit(o) { return kdifType(o) === "sav" ? (+state.limSav || 0) : (+state.limTerm || 0); }
+
+  function computeFor(P, T, tp, infl) {
+    return state.offers.map(function (o) {
+      var r = calc(o, P, T, tp, +o.rate || 0), reasons = [];
+      if (o.noData) reasons.push(t("rNoData"));
+      if (T < o.minM || T > o.maxM) reasons.push(t("rTerm", o.minM, o.maxM));
+      if (P < o.min) reasons.push(t("rMin", money(o.min)));
+      var real = r.final / Math.pow(1 + infl / 100, T / 12) - r.put;
+      return { o: o, final: r.final, put: r.put, gain: r.final - r.put, real: real, series: r.series, eff: effective(o), ok: reasons.length === 0, reasons: reasons, lim: kdifLimit(o) };
+    });
+  }
+  function compute() {
+    return computeFor(Math.max(0, +state.amount || 0), Math.max(1, +state.term || 1), Math.max(0, +state.topup || 0), Math.max(0, +state.infl || 0));
+  }
+
+  var view = { rows: [], list: [], okList: [], top: null, byFinal: [], chartCtx: null };
+  function sortVal(r, k) {
+    if (k === "name") return r.o.name.toLowerCase();
+    if (k === "rate") return +r.o.rate || 0;
+    if (k === "eff") return r.eff;
+    if (k === "gain") return r.gain;
+    if (k === "real") return r.real;
+    return r.final;
+  }
+  function refresh() {
+    var rows = compute();
+    var list = rows.filter(function (r) {
+      if (state.fTopup && !r.o.topup) return false;
+      if (state.fEarly && !r.o.early) return false;
+      if (state.fOnly && !r.ok) return false;
+      if (current === "compare") {
+        if (state.fTier !== "all" && r.o.tier !== state.fTier) return false;
+        if (state.fBank && r.o.bank !== state.fBank) return false;
+      }
+      return true;
+    });
+    list.sort(function (a, b) {
+      if (a.ok !== b.ok) return a.ok ? -1 : 1;
+      var x = sortVal(a, state.sortKey), y = sortVal(b, state.sortKey);
+      if (x < y) return state.sortDir > 0 ? -1 : 1;
+      if (x > y) return state.sortDir > 0 ? 1 : -1;
+      return 0;
+    });
+    var okAll = rows.filter(function (r) { return r.ok; });
+    view.rows = rows; view.list = list;
+    view.okList = list.filter(function (r) { return r.ok; });
+    view.byFinal = okAll.slice().sort(function (a, b) { return b.final - a.final; });
+    view.top = view.byFinal[0] || null;
+    renderView();
+  }
+
+  /* ---------- router ---------- */
+  function go(v, silent) {
+    if (VIEWS.indexOf(v) < 0) v = "main";
+    current = v; startEnter();
+    Array.prototype.forEach.call(document.querySelectorAll("[data-view]"), function (s) { s.hidden = s.getAttribute("data-view") !== v; });
+    $("scn").hidden = v === "offers" || v === "support" || v === "about";
+    $("fab").hidden = v === "support";
+    renderNav();
+    if (!silent) { try { history.replaceState(null, "", "#" + v); } catch (e) { try { location.hash = v; } catch (x) {} } window.scrollTo(0, 0); }
+    refresh();
+  }
+  function renderNav() {
+    $("nav").innerHTML = VIEWS.map(function (v) {
+      return '<a href="#' + v + '" data-go="' + v + '"' + (v === current ? ' aria-current="page"' : "") + '>' + esc(t(NAV_KEYS[v])) + '</a>';
+    }).join("");
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-go]"); if (!a) return;
+    e.preventDefault(); go(a.getAttribute("data-go"));
+  });
+  window.addEventListener("hashchange", function () {
+    var h = (location.hash || "").replace("#", "");
+    if (VIEWS.indexOf(h) >= 0 && h !== current) go(h, true);
+  });
+
+  function renderView() {
+    if (current === "main") renderMain();
+    else if (current === "compare") { renderTable(); renderChart(); }
+    else if (current === "tools") { renderTabs(); renderTab(); }
+    else if (current === "assistant") renderAssistant();
+    else if (current === "support") renderSupport();
+  }
+
+  /* ---------- main ---------- */
+  function sparkSvg(series) {
+    var W = 300, H = 56, n = series.length - 1, mn = Math.min.apply(null, series), mx = Math.max.apply(null, series);
+    if (mx === mn) mx = mn + 1;
+    function X(i) { return (i / Math.max(1, n)) * W; }
+    function Y(v) { return H - 6 - ((v - mn) / (mx - mn)) * (H - 14); }
+    var pts = series.map(function (v, i) { return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" ");
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,' + H + ' ' + pts + ' ' + W + ',' + H + '" fill="var(--accent)" opacity=".18"/><polyline class="ln" pathLength="1" points="' + pts + '" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>';
+  }
+  var ICONS = {
+    compare: '<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 25V12M13 25V5M21 25V16M27 25H3"/></svg>',
+    tools: '<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="15" r="10"/><path d="M15 8v7l5 3"/></svg>',
+    assistant: '<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h20v13H13l-6 5v-5H5z"/><path d="M10 12h10M10 16h6"/></svg>',
+    about: '<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="15" r="11"/><path d="M15 14v7M15 9.5v.5"/></svg>',
+    offers: '<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l11-7 11 7M6 12v9M12 12v9M18 12v9M24 12v9M4 25h22"/></svg>'
+  };
+  function renderMain() {
+    var b = view.top, el = $("heroBody");
+    if (!b) el.innerHTML = '<p class="kpi-sub">' + esc(t("noMatch")) + '</p>';
+    else {
+      var worst = view.byFinal[view.byFinal.length - 1];
+      el.innerHTML = '<div style="display:flex;flex-direction:column;gap:14px">' +
+        '<div><div class="kpi-main" id="heroNum">' + money(b.final) + '</div><div class="kpi-sub">' + esc(oname(b.o)) + ' · ' + state.term + ' ' + esc(t("mo")) + '</div></div>' +
+        '<div class="spark">' + sparkSvg(b.series) + '</div>' +
+        '<div class="kpi-grid">' +
+        '<div><span>' + esc(t("kGain")) + '</span><b class="pos">' + signed(b.gain) + '</b></div>' +
+        '<div><span>' + esc(t("kReal")) + '</span><b class="' + (b.real >= 0 ? "pos" : "neg") + '">' + signed(b.real) + '</b></div>' +
+        '<div><span>' + esc(t("kEff")) + '</span><b>' + pct(b.eff) + '</b></div></div>' +
+        '<div class="kpi-sub">' + esc(view.byFinal.length > 1 ? t("spread", money(b.final - worst.final)) : t("oneOnly")) + '</div></div>';
+      tween($("heroNum"), "hero", b.final, money, 700);
+    }
+
+    var withRate = state.offers.filter(function (o) { return !o.noData && +o.rate > 0; });
+    var seen = {}; state.offers.forEach(function (o) { seen[o.bank] = 1; });
+    var bestRate = withRate.reduce(function (m, o) { return Math.max(m, +o.rate); }, 0);
+    var avgRate = withRate.length ? withRate.reduce(function (s, o) { return s + (+o.rate); }, 0) / withRate.length : 0;
+    var stats = [[Object.keys(seen).length, "statBanks", fmtInt], [withRate.length, "statOffers", fmtInt], [bestRate, "statBest", pct], [avgRate, "statAvg", pct]];
+    $("stats").innerHTML = stats.map(function (s, i) {
+      return '<div class="stat" style="--i:' + i + '"><b id="st' + i + '">' + esc(s[2](s[0])) + '</b><span>' + esc(t(s[1])) + '</span></div>';
+    }).join("");
+    stats.forEach(function (s, i) { tween($("st" + i), "st" + i, s[0], s[2], 900); });
+
+    $("podiumNote").textContent = t("podiumNote") + ": " + money(+state.amount || 0) + " · " + state.term + " " + t("mo");
+    $("podium").innerHTML = view.byFinal.slice(0, 3).map(function (r, i) {
+      var fl = flashInfo(r.o.id);
+      return '<div class="pod' + fl.c + '" style="--i:' + i + ';' + fl.s + '"><div class="rk">' + (i + 1) + '</div>' +
+        '<div class="pod-h">' + mono(r.o.name) + '<div><div class="nm">' + esc(r.o.name) + '</div>' + (r.o.product ? '<div class="prod">' + esc(r.o.product) + '</div>' : "") + '</div></div>' +
+        '<div class="fv">' + money(r.final) + '</div>' +
+        '<div class="kpi-sub">' + esc(t("kGain")) + ' <b class="pos">' + signed(r.gain) + '</b> · ' + pct(+r.o.rate || 0) + '</div></div>';
+    }).join("") || '<p class="empty">' + esc(t("noMatch")) + '</p>';
+
+    var groups = {}, order = [];
+    state.offers.forEach(function (o) {
+      if (!groups[o.bank]) { groups[o.bank] = { name: o.name, tier: o.tier, best: 0, n: 0 }; order.push(o.bank); }
+      if (!o.noData) { groups[o.bank].n++; groups[o.bank].best = Math.max(groups[o.bank].best, +o.rate || 0); }
+    });
+    $("banks").innerHTML = order.map(function (k, i) {
+      var g = groups[k];
+      return '<button type="button" class="bk" data-bank="' + esc(k) + '" style="--i:' + i + '">' + mono(g.name) +
+        '<span class="bk-t"><b>' + esc(g.name) + '</b><small>' + esc(tierName(g.tier)) + '</small></span>' +
+        '<span class="bk-r' + (g.n ? "" : " no") + '">' + esc(g.n ? t("bkBest", pct(g.best)) : t("bkNo")) + '</span></button>';
+    }).join("");
+
+    var ch = state.changes || [];
+    $("chgNote").textContent = t("chgNote", ch.length);
+    $("chg").innerHTML = ch.length ? ch.slice(0, 8).map(function (c, i) {
+      var up = c.to > c.from;
+      return '<div class="chg-row ' + (up ? "up" : "down") + '" style="--i:' + i + '"><span class="arr">' + (up ? "▲" : "▼") + '</span>' +
+        '<div class="chg-t"><b>' + esc(c.name) + '</b><small>' + esc(dstr(c.ts)) + '</small></div>' +
+        '<div class="chg-v">' + (c.from ? pct(c.from) : "—") + ' → <b>' + (c.to ? pct(c.to) : "—") + '</b></div></div>';
+    }).join("") : '<p class="empty">' + esc(t("chgEmpty")) + '</p>';
+
+    var feats = [["compare", "f1"], ["tools", "f2"], ["assistant", "f5"], ["offers", "f4"], ["about", "f3"]];
+    $("feat").innerHTML = feats.map(function (f, i) {
+      return '<a href="#' + f[0] + '" data-go="' + f[0] + '" style="--i:' + i + '">' + ICONS[f[0]] + '<h3>' + esc(t(NAV_KEYS[f[0]])) + '</h3><p>' + esc(t(f[1])) + '</p><span class="go">' + esc(t("open")) + ' →</span></a>';
+    }).join("");
+  }
+  $("banks").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-bank]"); if (!b) return;
+    state.fBank = b.getAttribute("data-bank"); state.fTier = "all"; save(); go("compare");
+  });
+
+  /* ---------- compare ---------- */
+  function renderFilterBits() {
+    var tiers = ["all", "big", "mid", "small", "islamic"];
+    $("tierChips").innerHTML = tiers.map(function (k) {
+      return '<button type="button" class="chip-btn" data-tier="' + k + '" aria-pressed="' + (state.fTier === k) + '">' +
+        esc(t(k === "all" ? "tierAll" : "tier" + k.charAt(0).toUpperCase() + k.slice(1))) + '</button>';
+    }).join("");
+    var bf = "";
+    if (state.fBank) {
+      var nm = "";
+      state.offers.forEach(function (o) { if (o.bank === state.fBank) nm = o.name; });
+      bf = '<div class="note" style="margin-top:0;max-width:none;align-items:center"><b>' + esc(t("fBankL", nm)) + '</b><button type="button" class="btn del" data-clearbank="1">' + esc(t("fClear")) + '</button></div>';
+    }
+    $("bankFilter").innerHTML = bf;
+  }
+  function renderTable() {
+    var heads = [["name", "bank", ""], ["rate", "rate", "r"], ["eff", "eff", "r"], [null, "cap", ""], ["final", "final", "r"], ["gain", "gain", "r"], ["real", "real", "r"], [null, "chartCol", "c"]];
+    $("thead").innerHTML = heads.map(function (h) {
+      if (!h[0]) return '<th class="' + h[2] + '">' + esc(t(h[1])) + '</th>';
+      var on = state.sortKey === h[0], arrow = on ? (state.sortDir > 0 ? "↑" : "↓") : "";
+      return '<th class="' + h[2] + '" aria-sort="' + (on ? (state.sortDir > 0 ? "ascending" : "descending") : "none") + '"><button type="button" data-sort="' + h[0] + '" data-on="' + (on ? 1 : 0) + '">' + esc(t(h[1])) + ' <span aria-hidden="true">' + arrow + '</span></button></th>';
+    }).join("");
+    $("tableNote").textContent = t("tableNote", view.okList.length, view.list.length);
+    renderFilterBits();
+    var tb = $("rows");
+    if (!view.list.length) { tb.innerHTML = '<tr><td colspan="8" class="empty">' + esc(t("noMatch")) + '</td></tr>'; return; }
+    var topId = view.top ? view.top.o.id : null, P = +state.amount || 0, tp = +state.topup || 0;
+    var sel = chartSelection().map(function (r) { return r.o.id; });
+    tb.innerHTML = view.list.map(function (r, idx) {
+      var o = r.o, tags = "", fl = flashInfo(o.id), lc = lastChange(o.id), nd = !!o.noData, dash = '<td class="r">—</td>';
+      if (o.id === topId) tags += '<span class="tag win">' + esc(t("bestTag")) + '</span>';
+      if (lc) {
+        var dl = lc.to - lc.from, up = dl > 0;
+        tags += '<span class="tag chg ' + (up ? "up" : "down") + '">' + (up ? "▲ +" : "▼ −") + Math.abs(dl).toFixed(2).replace(".", ",") + '</span>';
+      }
+      if (!nd) {
+        if (o.topup) tags += '<span class="tag">' + esc(t("tTopup")) + '</span>';
+        else if (tp > 0) tags += '<span class="tag">' + esc(t("tNoTopup")) + '</span>';
+        if (o.early) tags += '<span class="tag">' + esc(t("tEarly")) + '</span>';
+        if (!o.verified) tags += '<span class="tag" title="' + esc(o.note || "") + '">' + esc(t("tUnver")) + '</span>';
+      }
+      if (P > r.lim && !nd) tags += '<span class="tag bad">' + esc(t("tKdif")) + '</span>';
+      if (!r.ok) tags += '<span class="tag bad">' + esc(r.reasons.join(", ")) + '</span>';
+      var tip = esc((o.asof ? o.asof + ". " : "") + (o.note || ""));
+      var cells = nd ? dash + dash + '<td>' + esc(capName(o.cap)) + '</td>' + dash + dash + dash :
+        '<td class="r" title="' + tip + '">' + pct(+o.rate || 0) + '</td><td class="r">' + pct(r.eff) + '</td><td>' + esc(capName(o.cap)) + '</td>' +
+        '<td class="r"><b>' + money(r.final) + '</b></td><td class="r">' + signed(r.gain) + '</td>' +
+        '<td class="r ' + (r.real >= 0 ? "pos" : "neg") + '"><b>' + signed(r.real) + '</b></td>';
+      return '<tr class="' + (o.id === topId ? "top" : "") + (r.ok ? "" : " off") + fl.c + '" style="--i:' + Math.min(idx, 14) + ';' + fl.s + '">' +
+        '<td><div class="bankc">' + mono(o.name) + '<div class="bank"><span>' + esc(o.name) + '</span>' + (o.product ? '<span class="prod">' + esc(o.product) + '</span>' : "") + '<span class="tags">' + tags + '</span></div></div></td>' +
+        cells +
+        '<td class="c"><input type="checkbox" data-pick="' + o.id + '"' + (sel.indexOf(o.id) >= 0 ? " checked" : "") + (r.ok ? "" : " disabled") + ' aria-label="' + esc(t("chartCol") + ": " + o.name) + '"></td></tr>';
+    }).join("");
+  }
+  $("tierChips").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tier]"); if (!b) return;
+    state.fTier = b.getAttribute("data-tier"); state.fBank = null; save(); refresh();
+  });
+  $("bankFilter").addEventListener("click", function (e) {
+    if (!e.target.closest("[data-clearbank]")) return;
+    state.fBank = null; save(); refresh();
+  });
+  $("thead").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-sort]"); if (!b) return;
+    var k = b.getAttribute("data-sort");
+    if (state.sortKey === k) state.sortDir *= -1; else { state.sortKey = k; state.sortDir = k === "name" ? 1 : -1; }
+    save(); refresh();
+  });
+  $("rows").addEventListener("change", function (e) {
+    var id = e.target.getAttribute("data-pick"); if (!id) return;
+    id = +id;
+    var cur = chartSelection().map(function (r) { return r.o.id; });
+    if (e.target.checked) { cur.push(id); if (cur.length > 3) cur.shift(); } else cur = cur.filter(function (x) { return x !== id; });
+    state.chartSel = cur.length ? cur : [-1];
+    save(); renderTable(); renderChart();
+  });
+  function chartSelection() {
+    var okIds = view.okList.map(function (r) { return r.o.id; });
+    var pick = (state.chartSel || []).filter(function (id) { return okIds.indexOf(id) >= 0; });
+    if (!pick.length && !(state.chartSel && state.chartSel[0] === -1)) return view.okList.slice().sort(function (a, b) { return b.final - a.final; }).slice(0, 3);
+    return pick.map(function (id) { return view.okList.filter(function (r) { return r.o.id === id; })[0]; }).filter(Boolean);
+  }
+  $("copyTable").addEventListener("click", function () {
+    var lines = [[t("bank"), t("rate"), t("eff"), t("cap"), t("final"), t("gain"), t("real")].join("\t")];
+    view.list.forEach(function (r) { lines.push([r.o.name, pct(+r.o.rate || 0), pct(r.eff), capName(r.o.cap), money(r.final), signed(r.gain), signed(r.real)].map(plain).join("\t")); });
+    copyText(lines.join("\n"), $("copyMsg"));
+  });
+  function copyText(text, msgEl) {
+    function done(ok) { msgEl.textContent = ok ? t("copied") : t("copyFail"); setTimeout(function () { msgEl.textContent = ""; }, 2200); }
+    function fallback() {
+      try { var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); var ok = document.execCommand("copy"); document.body.removeChild(ta); done(ok); }
+      catch (e) { done(false); }
+    }
+    try { navigator.clipboard.writeText(text).then(function () { done(true); }, fallback); } catch (e) { fallback(); }
+  }
+
+  function niceStep(raw) { var p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p; }
+  function tickLabel(v) {
+    var th = state.lang === "kk" ? "мың" : "тыс.";
+    if (Math.abs(v) >= 1e6) return (v / 1e6).toLocaleString("ru-RU", { maximumFractionDigits: 2 }) + " млн";
+    return (v / 1e3).toLocaleString("ru-RU", { maximumFractionDigits: 0 }) + " " + th;
+  }
+  var COLS = ["var(--s1)", "var(--s2)", "var(--s3)"];
+  function renderChart() {
+    var el = $("chart"), lg = $("legend"), ro = $("readout"), top = chartSelection(), P = +state.amount || 0;
+    if (!top.length) { el.innerHTML = '<div class="empty">' + esc(t("noChart")) + '</div>'; lg.innerHTML = ""; ro.innerHTML = ""; view.chartCtx = null; return; }
+    var T = Math.max(1, +state.term || 1), W = 560, H = 300, L = 68, R = 18, Tp = 14, B = 34, tp = Math.max(0, +state.topup || 0);
+    var anyTop = top.some(function (r) { return r.o.topup; }), contrib = [], m;
+    for (m = 0; m <= T; m++) contrib.push(P + (anyTop ? tp * m : 0));
+    var maxV = 0, minV = Infinity;
+    top.forEach(function (r) { r.series.forEach(function (v) { maxV = Math.max(maxV, v); minV = Math.min(minV, v); }); });
+    contrib.forEach(function (v) { minV = Math.min(minV, v); maxV = Math.max(maxV, v); });
+    var span = Math.max(maxV - minV, maxV * 0.02), step = niceStep((span * 1.15) / 4);
+    var y0 = Math.floor((minV - span * 0.1) / step) * step; if (y0 < 0) y0 = 0;
+    var y1 = Math.ceil(maxV / step) * step; if (y1 <= y0) y1 = y0 + step;
+    function X(i) { return L + (i / T) * (W - L - R); }
+    function Y(v) { return H - B - ((v - y0) / (y1 - y0)) * (H - B - Tp); }
+    var s = '<svg class="chart" id="svgc" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(t("secChart")) + '">', v;
+    for (v = y0; v <= y1 + step / 2; v += step) {
+      s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="var(--line)" stroke-width="1" fill="none"/>';
+      s += '<text x="' + (L - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end" font-size="12" fill="var(--muted)">' + tickLabel(v) + '</text>';
+    }
+    var xs = T <= 6 ? 1 : T <= 12 ? 3 : T <= 24 ? 6 : 12, xt = [], k;
+    for (k = 0; k <= T; k += xs) xt.push(k);
+    if (xt[xt.length - 1] !== T && T - xt[xt.length - 1] >= xs / 2) xt.push(T);
+    xt.forEach(function (k) { s += '<text x="' + X(k) + '" y="' + (H - 12) + '" text-anchor="middle" font-size="12" fill="var(--muted)">' + k + '</text>'; });
+    s += '<polyline fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4" points="' + contrib.map(function (v, i) { return X(i) + "," + Y(v); }).join(" ") + '"/>';
+    top.forEach(function (r, i) { s += '<polyline class="ln" pathLength="1" fill="none" stroke="' + COLS[i] + '" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" points="' + r.series.map(function (v, j) { return X(j) + "," + Y(v); }).join(" ") + '"/>'; });
+    s += '<line id="cxl" x1="0" x2="0" y1="' + Tp + '" y2="' + (H - B) + '" stroke="var(--muted)" stroke-width="1" fill="none" visibility="hidden"/>';
+    top.forEach(function (r, i) { s += '<circle id="cxc' + i + '" cx="' + X(T) + '" cy="' + Y(r.series[T]) + '" r="4.5" fill="' + COLS[i] + '" stroke="var(--surface)" stroke-width="2"/>'; });
+    s += '<rect x="' + L + '" y="0" width="' + (W - L - R) + '" height="' + (H - B) + '" fill="transparent"/></svg>';
+    el.innerHTML = s;
+    lg.innerHTML = top.map(function (r, i) { return '<span><i style="background:' + COLS[i] + '"></i>' + esc(oname(r.o)) + '</span>'; }).join("") + '<span><i style="background:var(--muted)"></i>' + esc(t("legendPut")) + '</span>';
+    view.chartCtx = { top: top, contrib: contrib, T: T, X: X, Y: Y };
+    showReadout(T);
+    var svg = $("svgc");
+    svg.addEventListener("pointermove", function (ev) {
+      var rect = svg.getBoundingClientRect(), x = (ev.clientX - rect.left) / rect.width * W;
+      var mm = Math.round(((x - L) / (W - L - R)) * T); showReadout(Math.max(0, Math.min(T, mm)), true);
+    });
+    svg.addEventListener("pointerleave", function () { showReadout(T); });
+  }
+  function showReadout(mm, cross) {
+    var c = view.chartCtx; if (!c) return;
+    var line = $("cxl");
+    if (line) { line.setAttribute("x1", c.X(mm)); line.setAttribute("x2", c.X(mm)); line.setAttribute("visibility", cross ? "visible" : "hidden"); }
+    var html = '<span class="m">' + esc(t("month", mm)) + '</span>';
+    c.top.forEach(function (r, i) {
+      var dot = $("cxc" + i); if (dot) { dot.setAttribute("cx", c.X(mm)); dot.setAttribute("cy", c.Y(r.series[mm])); }
+      html += '<span><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:' + COLS[i] + ';margin-right:6px"></i>' + esc(oname(r.o)) + ' <b>' + money(r.series[mm]) + '</b></span>';
+    });
+    html += '<span class="m">' + esc(t("legendPut")) + ' <b style="color:var(--ink)">' + money(c.contrib[mm]) + '</b></span>';
+    $("readout").innerHTML = html;
+  }
+
+  /* ---------- tools ---------- */
+  var TABS = [["mx", "tabMx"], ["goal", "tabGoal"], ["sch", "tabSch"], ["kdif", "tabKdif"]];
+  function renderTabs() {
+    $("tabs").innerHTML = TABS.map(function (x) { return '<button type="button" role="tab" data-tab="' + x[0] + '" aria-selected="' + (state.tab === x[0]) + '">' + esc(t(x[1])) + '</button>'; }).join("");
+    TABS.forEach(function (x) { $("tp-" + x[0]).hidden = state.tab !== x[0]; });
+  }
+  $("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tab]"); if (!b) return;
+    state.tab = b.getAttribute("data-tab"); save(); renderTabs(); renderTab();
+  });
+  function renderTab() {
+    if (state.tab === "mx") renderMx(); else if (state.tab === "goal") renderGoal(); else if (state.tab === "sch") renderSch(); else renderKdif();
+  }
+  function renderMx() {
+    var P = Math.max(0, +state.amount || 0), tp = Math.max(0, +state.topup || 0), mode = state.mxMode;
+    var offers = state.offers.filter(function (o) { return P >= o.min; });
+    var cells = offers.map(function (o) {
+      return TERMS.map(function (T) {
+        if (T < o.minM || T > o.maxM) return null;
+        var r = calc(o, P, T, tp, +o.rate || 0), gain = r.final - r.put;
+        return mode === "gain" ? gain : (Math.pow(r.final / r.put, 12 / T) - 1) * 100;
+      });
+    });
+    var colMax = TERMS.map(function (T, j) { var m = -Infinity; cells.forEach(function (row) { if (row[j] !== null && row[j] > m) m = row[j]; }); return m; });
+    var h = '<div class="inline"><div class="field"><span class="lbl">' + esc(t("mxMode")) + '</span><div class="seg" role="group"><button type="button" data-mx="gain" aria-pressed="' + (mode === "gain") + '">' + esc(t("mxGain")) + '</button><button type="button" data-mx="apy" aria-pressed="' + (mode === "apy") + '">' + esc(t("mxApy")) + '</button></div></div></div>';
+    h += '<div class="scroll"><table class="mx"><thead><tr><th>' + esc(t("bank")) + '</th>' + TERMS.map(function (T) { return '<th class="r">' + T + ' ' + esc(t("mo")) + '</th>'; }).join("") + '</tr></thead><tbody>';
+    if (!offers.length) h += '<tr><td colspan="' + (TERMS.length + 1) + '" class="empty">' + esc(t("noMatch")) + '</td></tr>';
+    offers.forEach(function (o, i) {
+      h += '<tr><td><b>' + esc(oname(o)) + '</b></td>';
+      TERMS.forEach(function (T, j) {
+        var v = cells[i][j];
+        if (v === null) { h += '<td class="dash">–</td>'; return; }
+        var k = colMax[j] > 0 ? Math.max(0, v / colMax[j]) : 0;
+        h += '<td class="cell' + (v === colMax[j] ? " best" : "") + '" style="--k:' + k.toFixed(3) + '">' + (mode === "gain" ? money(v) : pct(v)) + '</td>';
+      });
+      h += '</tr>';
+    });
+    h += '</tbody></table></div><p class="foot">' + esc(t("mxHint")) + '</p>';
+    $("tp-mx").innerHTML = h;
+  }
+  $("tp-mx").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-mx]"); if (!b) return;
+    state.mxMode = b.getAttribute("data-mx"); save(); renderMx();
+  });
+  function renderGoal() {
+    var T = Math.max(1, +state.term || 1), P = Math.max(0, +state.amount || 0), G = Math.max(0, +state.goal || 0);
+    var h = '<div class="goal-grid"><div class="field"><label for="goalIn">' + esc(t("gTarget")) + '</label><div class="unit big"><input id="goalIn" type="number" min="0" step="100000" inputmode="numeric" value="' + G + '"><span>₸</span></div></div></div>';
+    h += '<p class="foot">' + esc(t("gHint", T)) + '</p><div class="scroll"><table><thead><tr><th>' + esc(t("bank")) + '</th><th class="r">' + esc(t("gInit")) + '</th><th class="r">' + esc(t("gMonthly")) + '</th></tr></thead><tbody>';
+    var rowsOk = view.okList.slice().sort(function (a, b) { return (G / calc(a.o, 1, T, 0, +a.o.rate || 0).final) - (G / calc(b.o, 1, T, 0, +b.o.rate || 0).final); });
+    if (!rowsOk.length) h += '<tr><td colspan="3" class="empty">' + esc(t("gNone")) + '</td></tr>';
+    rowsOk.forEach(function (r) {
+      var o = r.o, a = calc(o, 1, T, 0, +o.rate || 0).final, init = G / a, monthly = "";
+      if (!o.topup) monthly = '<span style="color:var(--muted)">' + esc(t("gNA")) + '</span>';
+      else { var b = calc(o, 0, T, 1, +o.rate || 0).final, need = (G - P * a) / b; monthly = need <= 0 ? '<span class="pos">' + esc(t("gDone")) + '</span>' : money(need); }
+      h += '<tr><td><b>' + esc(oname(o)) + '</b></td><td class="r">' + money(init) + '</td><td class="r">' + monthly + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    $("tp-goal").innerHTML = h;
+  }
+  $("tp-goal").addEventListener("input", function (e) {
+    if (e.target.id !== "goalIn") return;
+    state.goal = e.target.value === "" ? 0 : +e.target.value; save();
+    var pos = e.target.selectionStart; renderGoal();
+    var n = $("goalIn"); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) {} }
+  });
+  function schedule(o, P, months, topup, rate) {
+    var capM = o.cap === 0 ? Infinity : o.cap, base = P, accrued = 0, add = o.topup ? topup : 0, out = [];
+    for (var m = 1; m <= months; m++) {
+      var start = base + accrued;
+      if (add > 0) base += add;
+      var inter = base * (rate / 100) / 12; accrued += inter;
+      var capNow = (m % capM === 0);
+      if (capNow) { base += accrued; accrued = 0; }
+      out.push({ m: m, start: start, add: add, inter: inter, cap: capNow, end: base + accrued });
+    }
+    return out;
+  }
+  function renderSch() {
+    var okIds = view.okList.map(function (r) { return r.o.id; });
+    if (okIds.indexOf(state.schedId) < 0) state.schedId = okIds.length ? view.byFinal[0].o.id : null;
+    var h = '<div class="inline"><div class="field"><label for="schedSel">' + esc(t("sOffer")) + '</label><select id="schedSel">' +
+      view.okList.map(function (r) { return '<option value="' + r.o.id + '"' + (r.o.id === state.schedId ? " selected" : "") + '>' + esc(oname(r.o)) + '</option>'; }).join("") +
+      '</select></div><div class="actions"><button type="button" class="btn ghost" id="copySch">' + esc(t("copy")) + '</button><span class="foot" id="copySchMsg" role="status"></span></div></div>';
+    if (state.schedId === null) { $("tp-sch").innerHTML = h + '<p class="empty">' + esc(t("noMatch")) + '</p>'; return; }
+    var o = state.offers.filter(function (x) { return x.id === state.schedId; })[0];
+    var rows = schedule(o, Math.max(0, +state.amount || 0), Math.max(1, +state.term || 1), Math.max(0, +state.topup || 0), +o.rate || 0);
+    h += '<div class="scroll sched-wrap"><table><thead><tr><th>' + esc(t("sMonth")) + '</th><th class="r">' + esc(t("sStart")) + '</th><th class="r">' + esc(t("sAdd")) + '</th><th class="r">' + esc(t("sInt")) + '</th><th class="r">' + esc(t("sEnd")) + '</th></tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr class="' + (r.cap ? "sched-cap" : "") + '"><td>' + r.m + '</td><td class="r">' + money(r.start) + '</td><td class="r">' + (r.add ? money(r.add) : "–") + '</td><td class="r">' + money(r.inter) + '</td><td class="r"><b>' + money(r.end) + '</b></td></tr>'; }).join("") +
+      '</tbody></table></div><p class="foot">' + esc(t("sCapMark")) + '</p>';
+    $("tp-sch").innerHTML = h;
+    $("schedSel").addEventListener("change", function () { state.schedId = +$("schedSel").value; save(); renderSch(); });
+    $("copySch").addEventListener("click", function () {
+      var lines = [[t("sMonth"), t("sStart"), t("sAdd"), t("sInt"), t("sEnd")].join("\t")];
+      rows.forEach(function (r) { lines.push([r.m, money(r.start), money(r.add), money(r.inter), money(r.end)].map(plain).join("\t")); });
+      copyText(lines.join("\n"), $("copySchMsg"));
+    });
+  }
+  function renderKdif() {
+    var best = view.byFinal.slice();
+    var h = '<p>' + esc(t("kText")) + '</p><p class="foot">' + esc(t("kRule")) + '</p>' +
+      '<div class="goal-grid"><div class="field"><label for="limSav">' + esc(t("kLimSav")) + '</label><div class="unit"><input id="limSav" type="number" min="0" step="1000000" value="' + state.limSav + '"><span>₸</span></div></div>' +
+      '<div class="field"><label for="limTerm">' + esc(t("kLimTerm")) + '</label><div class="unit"><input id="limTerm" type="number" min="0" step="1000000" value="' + state.limTerm + '"><span>₸</span></div></div></div>';
+    h += '<div class="scroll"><table><thead><tr><th>' + esc(t("bank")) + '</th><th>' + esc(t("kType")) + '</th><th class="r">' + esc(t("kTotal")) + '</th><th class="r">' + esc(t("kLim")) + '</th><th class="r">' + esc(t("kOver")) + '</th></tr></thead><tbody>';
+    if (!best.length) h += '<tr><td colspan="5" class="empty">' + esc(t("noMatch")) + '</td></tr>';
+    best.forEach(function (r) {
+      var over = Math.max(0, r.final - r.lim);
+      h += '<tr><td><b>' + esc(oname(r.o)) + '</b></td><td>' + esc(t(kdifType(r.o) === "sav" ? "kSav" : "kTerm")) + '</td><td class="r">' + money(r.final) + '</td><td class="r">' + money(r.lim) + '</td><td class="r">' +
+        (over > 0 ? '<span class="neg"><b>' + money(over) + '</b></span>' : '<span class="pos">' + esc(t("kOk")) + '</span>') + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    var minLim = best.length ? Math.min.apply(null, best.map(function (r) { return r.lim; })) : 0;
+    var maxFinal = best.length ? Math.max.apply(null, best.map(function (r) { return r.final; })) : 0;
+    if (minLim > 0 && maxFinal > minLim) h += '<p><b>' + esc(t("kSplit", Math.ceil(maxFinal / minLim))) + '</b></p>';
+    h += '<p class="foot">' + esc(t("kSrc")) + ' <a target="_blank" rel="noopener" href="https://digitalbusiness.kz/2026-06-16/v-kfgd-rasskazali-kak-razmestit-dengi-na-depozitah-v-2026-godu-chtobi-tochno-nichego-ne-poteryat/">' + esc(t("srcLink")) + '</a></p>';
+    $("tp-kdif").innerHTML = h;
+  }
+  $("tp-kdif").addEventListener("input", function (e) {
+    if (e.target.id !== "limSav" && e.target.id !== "limTerm") return;
+    state[e.target.id] = e.target.value === "" ? 0 : +e.target.value; save();
+    var id = e.target.id, pos = e.target.selectionStart;
+    refresh(); var n = $(id); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) {} }
+  });
+
+  /* ---------- AI assistant ---------- */
+  // Необязательно: адрес своего прокси. Если пусто, чат работает через Puter.js без ключа API.
+  var AI_ENDPOINT = "";
+  var turns = [], busy = false, ctl = null;
+
+  function fmtMsg(text) {
+    var lines = esc(text).split("\n"), out = "", inList = false;
+    lines.forEach(function (ln) {
+      ln = ln.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+      var m = ln.match(/^\s*[-*•]\s+(.*)$/);
+      if (m) { if (!inList) { out += "<ul>"; inList = true; } out += "<li>" + m[1] + "</li>"; }
+      else { if (inList) { out += "</ul>"; inList = false; } if (ln.trim()) out += "<p>" + ln + "</p>"; }
+    });
+    if (inList) out += "</ul>";
+    return out;
+  }
+  function addBubble(role, html) {
+    var d = document.createElement("div"); d.className = "msg " + (role === "user" ? "u" : "a"); d.innerHTML = html;
+    $("log").appendChild(d); $("log").scrollTop = $("log").scrollHeight; return d;
+  }
+  function scenarioJson() {
+    var rows = compute();
+    return JSON.stringify({
+      currency: "KZT", amount: Math.round(+state.amount || 0), termMonths: +state.term || 1, monthlyTopup: Math.round(+state.topup || 0), inflationPctPerYear: +state.infl || 0,
+      kdifLimitsKzt: { savings: +state.limSav || 0, term: +state.limTerm || 0 },
+      offers: rows.map(function (r) {
+        return { name: r.o.name, product: r.o.product || "", rateDataAvailable: !r.o.noData, isEstimate: !r.o.verified, ratePct: +r.o.rate || 0, effectivePct: +r.eff.toFixed(2), capitalization: r.o.cap === 1 ? "monthly" : r.o.cap === 3 ? "quarterly" : "at maturity",
+          canTopUp: !!r.o.topup, earlyWithdrawal: !!r.o.early, minAmount: r.o.min, termRangeMonths: [r.o.minM, r.o.maxM], fitsScenario: r.ok, misfit: r.reasons,
+          finalAmount: Math.round(r.final), profit: Math.round(r.gain), realProfit: Math.round(r.real), kdifType: kdifType(r.o), kdifLimit: r.lim };
+      })
+    });
+  }
+  function rules() {
+    var lang = state.lang === "kk" ? "Қазақ тілінде жауап бер." : "Отвечай по-русски.";
+    return "You are Claude, a helpful and knowledgeable AI assistant built into a bank deposit comparison website for users in Kazakhstan (currency: tenge). " + lang +
+      " Answer ANY question the user asks, on any topic, the way you would in a normal chat: clearly, accurately and in as much detail as the question needs. Use lists or short sections when they help. " +
+      "If the user asks about deposits, rates, their amount or the offers on this site, use the scenario data below for the numbers; the rates come from the site's rates feed (approximate figures collected from public sources; the user can edit them), so say that exact terms must be confirmed with the bank, and never invent rates that are not in the data. " +
+      "For finance or legal decisions give the facts needed to decide and note you are not a financial or legal advisor. If something on the site seems broken, tell the user to open the Support page. " +
+      "Site scenario and offers (JSON): " + scenarioJson();
+  }
+  function localSummary() {
+    var b = view.top;
+    if (!b) return t("sumNone");
+    var s = t("sumBest", oname(b.o), money(b.final), signed(b.gain), signed(b.real));
+    if (view.byFinal.some(function (r) { return (+state.amount || 0) > r.lim; })) s += " " + t("sumKdif");
+    return s;
+  }
+  function setBusy(b) { busy = b; $("send").disabled = b; $("stop").hidden = !b; }
+  var backend = null;
+  var BACKENDS = {
+    proxy: async function (sys, hist, sig) {
+      if (!AI_ENDPOINT) throw {};
+      var r = await fetch(AI_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, signal: sig, body: JSON.stringify({ system: sys, messages: hist }) });
+      if (!r.ok) throw { code: r.status };
+      return String((await r.json()).text || "");
+    },
+    claude: async function (sys, hist, sig) { // работает, когда страница открыта внутри Claude
+      var r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json" }, signal: sig,
+        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 1000, system: sys, messages: hist }) });
+      if (!r.ok) throw { code: r.status };
+      return ((await r.json()).content || []).map(function (x) { return x.text || ""; }).join("\n");
+    },
+    puter: async function (sys, hist) { // работает на обычном сайте (GitHub Pages)
+      if (location.protocol === "file:") throw {};
+      if (!window.puter) await new Promise(function (ok, no) {
+        var sc = document.createElement("script"); sc.src = "https://js.puter.com/v2/"; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc);
+      }).catch(function () { throw {}; });
+      if (!window.puter) throw {};
+      var res = await window.puter.ai.chat([{ role: "system", content: sys }].concat(hist));
+      var c = typeof res === "string" ? res : (res && res.message && res.message.content);
+      return String(Array.isArray(c) ? c.map(function (x) { return x.text || ""; }).join("\n") : (c || ""));
+    }
+  };
+  async function callAI(hist, sig) {
+    var names = backend ? [backend] : ["proxy", "claude", "puter"], last = {};
+    for (var i = 0; i < names.length; i++) {
+      try { var out = (await BACKENDS[names[i]](rules(), hist, sig)).trim(); if (out) { backend = names[i]; return out; } }
+      catch (e) { if (e && e.name === "AbortError") throw e; last = e || {}; }
+    }
+    backend = null; throw last;
+  }
+  async function ask(text) {
+    text = String(text || "").trim(); if (!text || busy) return;
+    addBubble("user", esc(text)); $("chatIn").value = "";
+    turns.push({ role: "user", content: text });
+    setBusy(true);
+    var pend = addBubble("assistant", esc(t("aiThinking")));
+    ctl = new AbortController();
+    try {
+      var out = await callAI(turns.slice(-20), ctl.signal);
+      turns.push({ role: "assistant", content: out });
+      pend.innerHTML = fmtMsg(out);
+    } catch (e) {
+      turns.pop();
+      if (e && e.name === "AbortError") pend.remove();
+      else pend.innerHTML = '<p>' + esc(t(e && e.code === 429 ? "eRate" : "aiFail")) + ' <a href="#support" data-go="support">' + esc(t("supLink")) + '</a></p>';
+    } finally { setBusy(false); ctl = null; $("log").scrollTop = $("log").scrollHeight; }
+  }
+  function renderAssistant() {
+    $("aiNote").textContent = t("aiNote");
+    $("quick").innerHTML = ["q1", "q2", "q3", "q4"].map(function (k) { return '<button type="button" class="chip-btn" data-q="' + k + '">' + esc(t(k)) + '</button>'; }).join("");
+    if (!$("log").children.length) addBubble("assistant", esc(t("aiHello")));
+  }
+  $("quick").addEventListener("click", function (e) { var b = e.target.closest("[data-q]"); if (b) ask(t(b.getAttribute("data-q"))); });
+  $("send").addEventListener("click", function () { ask($("chatIn").value); });
+  $("chatIn").addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("send").click(); } });
+  $("stop").addEventListener("click", function () { if (ctl) ctl.abort(); });
+  $("clearChat").addEventListener("click", function () { if (ctl) ctl.abort(); turns = []; $("log").innerHTML = ""; renderAssistant(); });
+
+  /* ---------- support ---------- */
+  var TG_PHONE = "+77472461206";
+  var TG_URL = "https://t.me/" + TG_PHONE;
+  var sup = { type: "bug", text: "", name: "" };
+  var TYPE_LAB = { bug: "supBug", calc: "supCalc", ai: "supAi", idea: "supIdea", other: "supOther" };
+  function supMessage() {
+    return "Депозит таразы · " + t(TYPE_LAB[sup.type]) + "\n" + t("supName") + ": " + (sup.name.trim() || "…") + "\n\n" + (sup.text.trim() || "…") + "\n\n— " + t("supCtx") + ": " +
+      money(+state.amount || 0) + ", " + state.term + " " + t("mo") + ", " + (+state.infl || 0) + " %, " + state.lang + ", " + current;
+  }
+  function copyPlain(text, done) {
+    function fallback() {
+      try { var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); var ok = document.execCommand("copy"); document.body.removeChild(ta); done(ok); }
+      catch (e) { done(false); }
+    }
+    try { navigator.clipboard.writeText(text).then(function () { done(true); }, fallback); } catch (e) { fallback(); }
+  }
+  function renderReports() {
+    var box = $("supList"); if (!box) return;
+    var list = state.reports || [], loc = state.lang === "kk" ? "kk-KZ" : "ru-RU";
+    box.innerHTML = '<div class="sec-head"><h2>' + esc(t("supListH")) + '</h2></div>' + (list.length ? '<div class="reports">' + list.map(function (r) {
+      var d = new Date(r.ts), ds = isNaN(d) ? "" : d.toLocaleDateString(loc);
+      return '<article class="report"><div class="report-top"><span class="who">' + esc(r.name) + '</span><span class="wrote">' + esc(t("supWrote")) + '</span><span class="when">' + esc(ds) + '</span></div>' +
+        '<div class="eyebrow">' + esc(t(TYPE_LAB[r.type] || "supOther")) + '</div><p>' + esc(r.text) + '</p>' +
+        '<button type="button" class="btn ghost" style="padding:6px 12px;font-size:13px" data-rdel="' + r.id + '">' + esc(t("supDel")) + '</button></article>';
+    }).join("") + '</div>' : '<p class="empty">' + esc(t("supEmpty")) + '</p>');
+  }
+  function renderSupport() {
+    var opts = ["bug", "calc", "ai", "idea", "other"].map(function (k) {
+      var lab = TYPE_LAB[k];
+      return '<option value="' + k + '"' + (sup.type === k ? " selected" : "") + '>' + esc(t(lab)) + '</option>';
+    }).join("");
+    $("supBody").innerHTML =
+      '<div class="panel"><div class="eyebrow">' + esc(t("supPhone")) + '</div><div class="phone">' + esc(TG_PHONE) + '</div>' +
+      '<div class="actions"><a class="btn ghost" id="supTg" target="_blank" rel="noopener" href="' + TG_URL + '">Telegram</a>' +
+      '<button type="button" class="btn ghost" id="supCopyPhone">' + esc(t("supCopyPhone")) + '</button></div><div class="status" id="supStatus0" role="status"></div></div>' +
+      '<div class="panel"><div class="field"><label for="supNameIn">' + esc(t("supName")) + '</label><input id="supNameIn" type="text" maxlength="60" autocomplete="name" placeholder="' + esc(t("supNamePh")) + '" value="' + esc(sup.name) + '"></div>' +
+      '<div class="field"><label for="supType">' + esc(t("supType")) + '</label><select id="supType">' + opts + '</select></div>' +
+      '<div class="field"><label for="supText">' + esc(t("supDesc")) + '</label><textarea id="supText" rows="5" placeholder="' + esc(t("supPh")) + '">' + esc(sup.text) + '</textarea></div>' +
+      '<div class="field"><span class="lbl">' + esc(t("supPreview")) + '</span><div class="msg a" id="supPrev" style="white-space:pre-wrap;max-width:100%"></div></div>' +
+      '<div class="actions"><button type="button" class="btn" id="supPub">' + esc(t("supPublish")) + '</button><a class="btn ghost" id="supSend" target="_blank" rel="noopener" href="' + TG_URL + '">' + esc(t("supOpen")) + '</a></div>' +
+      '<div class="status" id="supStatus" role="status"></div><p class="foot">' + esc(t("supNote")) + '</p></div>' +
+      '<div class="panel" id="supList" style="grid-column:1/-1"></div>';
+    function prev() { $("supPrev").textContent = supMessage(); }
+    prev();
+    $("supNameIn").addEventListener("input", function () { sup.name = $("supNameIn").value; prev(); });
+    $("supPub").addEventListener("click", function () {
+      var st = $("supStatus"), name = sup.name.trim(), text = sup.text.trim();
+      if (!name || !text) { st.className = "status neg"; st.textContent = t("supNeed"); return; }
+      state.reports.unshift({ id: Date.now(), name: name, type: sup.type, text: text, ts: Date.now() });
+      sup.text = ""; $("supText").value = ""; prev(); save(); renderReports();
+      st.className = "status"; st.textContent = t("supAdded");
+    });
+    $("supList").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-rdel]"); if (!b) return;
+      var id = +b.getAttribute("data-rdel");
+      state.reports = state.reports.filter(function (r) { return r.id !== id; }); save(); renderReports();
+    });
+    renderReports();
+    $("supType").addEventListener("change", function () { sup.type = $("supType").value; prev(); });
+    $("supText").addEventListener("input", function () { sup.text = $("supText").value; prev(); });
+    $("supCopyPhone").addEventListener("click", function () {
+      copyPlain(TG_PHONE, function (ok) { $("supStatus0").textContent = ok ? t("copied") : t("supFail"); });
+    });
+    $("supSend").addEventListener("click", function () {
+      copyPlain(supMessage(), function (ok) { $("supStatus").textContent = ok ? t("supCopied") : t("supFail"); });
+    });
+  }
+
+  /* ---------- editor ---------- */
+  function renderEditorHead() {
+    $("ehead").innerHTML = ["eName", "eProd", "eRateL", "eMin", "eFrom", "eTo", "eCap", "eTop", "eEarly"].map(function (k, i) {
+      return '<th' + (i >= 7 ? ' class="c"' : "") + '>' + esc(t(k)) + '</th>';
+    }).join("") + "<th></th>";
+  }
+  function capSelect(id, val) {
+    return '<select class="w-cap" data-id="' + id + '" data-f="cap" aria-label="' + esc(t("eCap")) + '">' +
+      [[1, "capM"], [3, "capQ"], [0, "capE"]].map(function (c) { return '<option value="' + c[0] + '"' + (c[0] === val ? " selected" : "") + '>' + esc(t(c[1])) + '</option>'; }).join("") + '</select>';
+  }
+  function renderEditor() {
+    renderEditorHead();
+    $("editRows").innerHTML = state.offers.map(function (o) {
+      return '<tr>' +
+        '<td><input class="w-name" type="text" data-id="' + o.id + '" data-f="name" value="' + esc(o.name) + '" aria-label="' + esc(t("eName")) + '"></td>' +
+        '<td><input class="w-name" type="text" data-id="' + o.id + '" data-f="product" value="' + esc(o.product || "") + '" aria-label="' + esc(t("eProd")) + '"></td>' +
+        '<td><input class="w-rate" type="number" step="0.01" min="0" data-id="' + o.id + '" data-f="rate" value="' + (o.noData ? "" : o.rate) + '" placeholder="—" aria-label="' + esc(t("eRateL")) + '"></td>' +
+        '<td><input class="w-min" type="number" step="10000" min="0" data-id="' + o.id + '" data-f="min" value="' + o.min + '" aria-label="' + esc(t("eMin")) + '"></td>' +
+        '<td><input class="w-term" type="number" min="1" max="120" data-id="' + o.id + '" data-f="minM" value="' + o.minM + '" aria-label="' + esc(t("eFrom")) + '"></td>' +
+        '<td><input class="w-term" type="number" min="1" max="120" data-id="' + o.id + '" data-f="maxM" value="' + o.maxM + '" aria-label="' + esc(t("eTo")) + '"></td>' +
+        '<td>' + capSelect(o.id, o.cap) + '</td>' +
+        '<td class="c"><input type="checkbox" data-id="' + o.id + '" data-f="topup"' + (o.topup ? " checked" : "") + ' aria-label="' + esc(t("eTop")) + '"></td>' +
+        '<td class="c"><input type="checkbox" data-id="' + o.id + '" data-f="early"' + (o.early ? " checked" : "") + ' aria-label="' + esc(t("eEarly")) + '"></td>' +
+        '<td><button class="btn del" type="button" data-id="' + o.id + '" data-del="1">' + esc(t("del")) + '</button></td></tr>';
+    }).join("");
+  }
+  function onEdit(e) {
+    var tg = e.target, f = tg.getAttribute("data-f"), id = +tg.getAttribute("data-id"); if (!f) return;
+    var o = state.offers.filter(function (x) { return x.id === id; })[0]; if (!o) return;
+    if (tg.type === "checkbox") o[f] = tg.checked;
+    else if (f === "name" || f === "product") o[f] = tg.value;
+    else o[f] = +tg.value || 0;
+    if (f === "rate") o.noData = !(+o.rate > 0);
+    o.edited = true; o.verified = true;
+    save(); refresh();
+  }
+  $("editRows").addEventListener("input", onEdit);
+  $("editRows").addEventListener("change", onEdit);
+  $("editRows").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-del]"); if (!b) return;
+    var id = +b.getAttribute("data-id");
+    if (id < 1000) { state.hidden = (state.hidden || []).concat([id]); }
+    state.offers = state.offers.filter(function (x) { return x.id !== id; });
+    save(); renderEditor(); refresh();
+  });
+  $("add").addEventListener("click", function () {
+    var nid = Math.max(1000, state.offers.reduce(function (m, o) { return Math.max(m, o.id); }, 0)) + 1;
+    state.offers.push({ id: nid, bank: "custom-" + nid, tier: "custom", name: t("newBank"), product: "", rate: 14, min: 50000, minM: 3, maxM: 36, cap: 1, topup: true, early: false, noData: false, verified: true, asof: "", note: "", edited: true });
+    save(); renderEditor(); refresh();
+  });
+  $("reset").addEventListener("click", function () {
+    var mine = state.offers.filter(function (o) { return o.id >= 1000; });
+    state.offers = sample().concat(mine); state.hidden = []; state.chartSel = [];
+    save(); renderEditor(); refresh(); pollFeed();
+  });
+
+  /* ---------- scenario bar, language, theme ---------- */
+  function renderBarChips() {
+    $("termChips").innerHTML = TERMS.map(function (x) { return '<button type="button" class="chip-btn" data-t="' + x + '" aria-pressed="' + (x === +state.term) + '">' + x + '</button>'; }).join("");
+    $("presets").innerHTML = PRESETS.map(function (x) { return '<button type="button" class="chip-btn" data-a="' + x + '" aria-pressed="' + (x === +state.amount) + '">' + (x / 1e6) + ' млн</button>'; }).join("");
+  }
+  function syncBar() { $("amount").value = state.amount; $("termIn").value = state.term; $("topup").value = state.topup; $("infl").value = state.infl; }
+  $("termChips").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-t]"); if (!b) return;
+    state.term = +b.getAttribute("data-t"); $("termIn").value = state.term; save(); renderBarChips(); refresh();
+  });
+  $("presets").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-a]"); if (!b) return;
+    state.amount = +b.getAttribute("data-a"); $("amount").value = state.amount; save(); renderBarChips(); refresh();
+  });
+  [["amount", "amount"], ["topup", "topup"], ["infl", "infl"]].forEach(function (p) {
+    $(p[0]).addEventListener("input", function () { state[p[1]] = $(p[0]).value === "" ? 0 : +$(p[0]).value; save(); if (p[0] === "amount") renderBarChips(); refresh(); });
+  });
+  $("termIn").addEventListener("input", function () {
+    var v = Math.round(+$("termIn").value); if (!(v >= 1)) return;
+    state.term = Math.min(120, v); save(); renderBarChips(); refresh();
+  });
+  ["fTopup", "fEarly", "fOnly"].forEach(function (id) {
+    var el = $(id); el.checked = !!state[id];
+    el.addEventListener("change", function () { state[id] = el.checked; save(); refresh(); });
+  });
+  function applyI18n() {
+    document.documentElement.lang = state.lang === "kk" ? "kk" : "ru";
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (n) { n.textContent = t(n.getAttribute("data-i18n")); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-ph]"), function (n) { n.setAttribute("placeholder", t(n.getAttribute("data-i18n-ph"))); });
+    $("langKk").setAttribute("aria-pressed", state.lang === "kk");
+    $("langRu").setAttribute("aria-pressed", state.lang === "ru");
+    $("themeBtn").textContent = t(state.theme === "light" ? "themeLight" : state.theme === "dark" ? "themeDark" : "themeAuto");
+    $("termIn").setAttribute("aria-label", t("term"));
+  }
+  function applyTheme() { var r = document.documentElement; if (state.theme === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", state.theme); }
+  function fullRender() { applyI18n(); renderNav(); renderBarChips(); renderEditor(); renderLive(); refresh(); }
+  $("langKk").addEventListener("click", function () { state.lang = "kk"; save(); fullRender(); });
+  $("langRu").addEventListener("click", function () { state.lang = "ru"; save(); fullRender(); });
+  $("themeBtn").addEventListener("click", function () {
+    state.theme = state.theme === "auto" ? "light" : state.theme === "light" ? "dark" : "auto";
+    save(); applyTheme(); applyI18n();
+  });
+
+  syncBar(); applyTheme();
+  var h0 = (location.hash || "").replace("#", "");
+  current = VIEWS.indexOf(h0) >= 0 ? h0 : "main";
+  applyI18n(); renderBarChips(); renderEditor();
+  go(current, true);
+  renderLive();
+  $("live").addEventListener("click", pollFeed);
+  pollFeed();
+  setInterval(pollFeed, 60000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) pollFeed(); });
+})();
+</script>
+
+</body></html>
