@@ -4,10 +4,8 @@ on:
   schedule:
     - cron: "0 */6 * * *"   # каждые 6 часов (время UTC)
   workflow_dispatch: {}     # кнопка «Run workflow» для ручного запуска
-
 permissions:
   contents: write
-
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -16,8 +14,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          
+      # 1. Добавляем установку библиотеки Supabase
+      - name: Install dependencies
+        run: pip install supabase
+
+      # 2. Передаем секретные ключи окружения при запуске скрипта
       - name: Скачать страницы и обновить rates.json
         run: python scraper/update_rates.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
       - name: Сохранить изменения
         run: |
           if git diff --quiet rates.json; then
